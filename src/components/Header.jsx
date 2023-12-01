@@ -4,7 +4,9 @@ export const Header = ({ title }) => {
 	const isLogin = false
 
 	return (
-		<header>
+		// inline styles - bad practice
+		// <header style={{ backg roundColor: 'teal', color: 'white', fontSize: '2rem', fontWeight: '700' }}>
+		<header className='header textBlack'>
 			<h1>{title}</h1>
 			<hr />
 			{/* Рендер за умовою, у випадку isLogin = true малюється 'Welcome back' */}

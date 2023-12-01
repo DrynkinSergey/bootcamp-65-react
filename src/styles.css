@@ -1,0 +1,16 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.header{
+  background-color: teal;
+  padding: 20px 10px;
+  font-weight: 700;
+  font-size: 2rem;
+  font-style: italic;
+
+}
+.textBlack{
+  color:black;
+}

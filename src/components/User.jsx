@@ -13,6 +13,7 @@ User.propTypes = {
 		skills: PropTypes.arrayOf(PropTypes.string).isRequired,
 		isOpenToWork: PropTypes.bool.isRequired,
 	}),
+	// user: PropTypes.object,
 }
 
 // {

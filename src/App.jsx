@@ -4,6 +4,10 @@ import { Modal } from './components/Modal'
 import { Post } from './components/Post'
 import { Section } from './components/Section'
 import { User } from './components/User'
+
+// Підключення файлу стилів
+import './styles.css'
+
 function App() {
 	const moviesData = [
 		{ title: 'Terminator ', id: '1' },
