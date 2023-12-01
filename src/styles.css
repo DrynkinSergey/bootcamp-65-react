@@ -14,3 +14,10 @@
 .textBlack{
   color:black;
 }
+.title{
+  color:rgb(0, 139, 28);
+}
+.header{
+  font-size: 30px;
+  font-style: italic;
+}
