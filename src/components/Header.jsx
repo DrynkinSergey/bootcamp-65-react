@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types'
+
 export const Header = ({ title }) => {
 	const isLogin = false
 
@@ -13,4 +15,7 @@ export const Header = ({ title }) => {
 			{/* <h2>{isLogin ? 'Hello' : 'Good bye'}</h2> */}
 		</header>
 	)
+}
+Header.propTypes = {
+	title: PropTypes.string,
 }

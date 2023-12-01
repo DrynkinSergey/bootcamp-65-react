@@ -3,6 +3,7 @@ import { Header } from './components/Header'
 import { Modal } from './components/Modal'
 import { Post } from './components/Post'
 import { Section } from './components/Section'
+import { User } from './components/User'
 function App() {
 	const moviesData = [
 		{ title: 'Terminator ', id: '1' },
@@ -15,6 +16,17 @@ function App() {
 		{ title: 'Laptop ', id: '3' },
 		{ title: 'Mouse ', id: '4' },
 	]
+	const handleClick = () => {
+		console.log(13231)
+	}
+	const user = {
+		id: 123123,
+		name: 'Leanne Graham',
+		email: 'Sincere@april.biz',
+		bio: 'Assumenda harum mollitia neque, officiis veniam repellat sapiente delectus aspernatur',
+		skills: ['react', 'vue'],
+		isOpenToWork: false,
+	}
 
 	return (
 		<div>
@@ -32,9 +44,10 @@ function App() {
 				<button>Купити!</button>
 			</Modal>
 
-			<Modal myBestTitleEver='Post'>
-				<Post />
+			<Modal handleClick={handleClick} myBestTitleEver='Post'>
+				asfffafads
 			</Modal>
+			<User user={user} />
 		</div>
 	)
 }
