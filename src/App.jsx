@@ -3,12 +3,14 @@ import './styles.css'
 import { TodoList } from './components/TodoList/TodoList'
 import { Employee } from './components/Employees/Employee'
 import { RegisterForm } from './components/RegisterForm/RegisterForm'
+import { RegisterFormUncontrolled } from './components/RegisterForm/RegisterFormUncontrolled'
 
 export const App = () => {
 	return (
 		<>
 			<Employee />
 			<RegisterForm />
+			<RegisterFormUncontrolled />
 		</>
 	)
 }

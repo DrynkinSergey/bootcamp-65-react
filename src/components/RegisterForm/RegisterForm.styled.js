@@ -5,7 +5,7 @@ export const StyledTitle = styled.h1`
 	color: white;
 	text-decoration: underline;
 `
-export const StyledLoginForm = styled.form`
+export const StyledForm = styled.form`
 	font-size: calc((1vh + 1vw));
 	border: 3px solid lightblue;
 	background-color: #71b4f7;

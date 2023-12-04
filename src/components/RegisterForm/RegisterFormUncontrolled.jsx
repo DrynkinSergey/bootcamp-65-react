@@ -1,7 +1,7 @@
 import { FlexContainer, StyledButton } from '../Counter/Counter.styled'
 import { StyledForm, StyledInput, StyledLabel, StyledTitle } from './RegisterForm.styled'
 
-export const RegisterForm = () => {
+export const RegisterFormUncontrolled = () => {
 	return (
 		<FlexContainer>
 			<StyledForm>
