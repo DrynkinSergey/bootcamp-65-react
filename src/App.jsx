@@ -1,15 +1,14 @@
 import React from 'react'
-import { Counter } from './components/Counter/Counter'
+import './styles.css'
 import { TodoList } from './components/TodoList/TodoList'
-import { ColorPicker } from './components/ColorPicker/ColorPicker'
-import colors from './assets/colors.json'
+import { Employee } from './components/Employees/Employee'
+import { RegisterForm } from './components/RegisterForm/RegisterForm'
 
 export const App = () => {
 	return (
 		<>
-			{/* <Counter /> */}
-			{/* <ColorPicker colors={colors} /> */}
-			<TodoList />
+			<Employee />
+			<RegisterForm />
 		</>
 	)
 }
