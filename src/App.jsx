@@ -8,8 +8,8 @@ export const App = () => {
 	return (
 		<>
 			{/* <Counter /> */}
-			<ColorPicker colors={colors} />
-			{/* <TodoList /> */}
+			{/* <ColorPicker colors={colors} /> */}
+			<TodoList />
 		</>
 	)
 }
