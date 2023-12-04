@@ -7,8 +7,8 @@ import colors from './assets/colors.json'
 export const App = () => {
 	return (
 		<>
-			<Counter />
-			{/* <ColorPicker colors={colors}  /> */}
+			{/* <Counter /> */}
+			<ColorPicker colors={colors} />
 			{/* <TodoList /> */}
 		</>
 	)

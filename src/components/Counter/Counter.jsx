@@ -1,5 +1,6 @@
 import React from 'react'
 import { Flex, FlexContainer, StyledButton, StyledCounter } from './Counter.styled'
+import { Buttons } from './Buttons'
 
 // const btn = document.querySelector('#btn')
 // btn.addEventListener('click', () => console.log('hello'))
@@ -41,11 +42,11 @@ export class Counter extends React.Component {
 				<StyledCounter>
 					<h1>{counter}</h1>
 					<input type='text' value={step} onChange={this.handleChangeStep} />
-					<Flex>
-						<StyledButton onClick={this.handleDecrement}>minus</StyledButton>
-						<StyledButton onClick={this.handleReset}>reset</StyledButton>
-						<StyledButton onClick={this.handleIncrement}>plus</StyledButton>
-					</Flex>
+					<Buttons
+						handleDecrement={this.handleDecrement}
+						handleIncrement={this.handleIncrement}
+						handleReset={this.handleReset}
+					/>
 				</StyledCounter>
 			</FlexContainer>
 		)

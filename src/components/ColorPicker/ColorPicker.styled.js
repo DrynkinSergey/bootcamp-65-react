@@ -6,6 +6,7 @@ export const StyledBackgroundTheme = styled.div`
 	height: 100vh;
 	transition: background-color 0.5s linear;
 	width: 100vw;
+	background: ${props => props.$bg};
 `
 export const StyledColorPalette = styled.div`
 	text-align: center;
