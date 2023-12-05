@@ -8,8 +8,8 @@ export const App = () => {
 	return (
 		<>
 			{/* <Employee /> */}
-			{/* <RegisterForm /> */}
-			<RegisterFormUncontrolled />
+			<RegisterForm />
+			{/* <RegisterFormUncontrolled /> */}
 		</>
 	)
 }
