@@ -1,7 +1,7 @@
 import { EmployeeCard } from './EmployeeCard'
 import s from './Employee.module.css'
 
-export const EmployeeList = ({ users = [] }) => {
+export const EmployeeList = ({ users = [], onDeleteUser }) => {
 	if (!users.length) {
 		return <h1>Немає юзерів для роботи</h1>
 	}
@@ -9,7 +9,7 @@ export const EmployeeList = ({ users = [] }) => {
 	return (
 		<ul className={s.userList}>
 			{users.map(user => (
-				<EmployeeCard key={user.id} {...user} />
+				<EmployeeCard key={user.id} {...user} onDeleteUser={onDeleteUser} />
 			))}
 		</ul>
 	)

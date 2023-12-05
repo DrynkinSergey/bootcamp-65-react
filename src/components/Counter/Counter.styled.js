@@ -21,6 +21,10 @@ export const StyledButton = styled.button`
 		background-color: #091ec2;
 		color: white;
 	}
+	&:disabled {
+		background-color: red;
+		color: white;
+	}
 `
 export const CounterStyled = styled.h1`
 	span {

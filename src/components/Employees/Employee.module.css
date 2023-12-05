@@ -45,10 +45,15 @@
 }
 /* Emloyee */
 .userList {
-  display: flex;
-	flex-wrap: wrap;
+  /* display: flex;
+	flex-wrap: wrap; */
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(320px,400px));
 	justify-content: center;
 	gap: 20px;
+}
+.openToWork{
+	background-color: rgb(14, 244, 244);
 }
 .userCard{
   display: flex;
@@ -58,7 +63,7 @@
 	border-radius: 12px;
 	padding: 15px;
 
-	width: 25%;
+
 	box-shadow: 4px 5px 2px 1px gray;
 }
 .skillList {

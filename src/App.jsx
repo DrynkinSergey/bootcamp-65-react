@@ -7,8 +7,8 @@ import { RegisterFormUncontrolled } from './components/RegisterForm/RegisterForm
 export const App = () => {
 	return (
 		<>
-			{/* <Employee /> */}
-			<RegisterForm />
+			<Employee />
+			{/* <RegisterForm /> */}
 			{/* <RegisterFormUncontrolled /> */}
 		</>
 	)
