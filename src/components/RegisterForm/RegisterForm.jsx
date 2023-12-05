@@ -22,12 +22,7 @@ export class RegisterForm extends React.Component {
 			country: 'ukraine',
 		})
 	}
-	handleChangeName = e => {
-		console.log(e.target.value)
-	}
-	handleChangeEmail = e => {
-		console.log(e.target.value)
-	}
+
 	handleChangeInput = e => {
 		const { target } = e
 		const { name, value } = target
@@ -35,47 +30,9 @@ export class RegisterForm extends React.Component {
 			this.setState({ rules: !this.state.rules })
 			return
 		}
-		// console.log(e.target)
-		// console.log(name, value)
-		// 1. IF - ELSE
-		// if (name === 'firstName') {
-		// 	this.setState({ firstName: value })
-		// } else if (name === 'email') {
-		// 	this.setState({ email: value })
-		// } else if (name === 'password') {
-		// 	this.setState({ password: value })
-		// } else if (name === 'gender') {
-		// 	this.setState({ gender: value })
-		// } else if (name === 'country') {
-		// 	this.setState({ country: value })
-		// }
 
-		//2. Switch case
-		// switch (name) {
-		// 	case 'firstName':
-		// 		this.setState({ firstName: value })
-		// 		break
-		// 	case 'email':
-		// 		this.setState({ email: value })
-		// 		break
-		// 	case 'password':
-		// 		this.setState({ password: value })
-		// 		break
-		// 	case 'gender':
-		// 		this.setState({ gender: value })
-		// 		break
-		// 	case 'country':
-		// 		this.setState({ country: value })
-		// 		break
-
-		// 	default:
-		// 		break
-		// }
-
-		//3. Dynamic
 		this.setState({ [name]: value })
 	}
-	// DRY
 	render() {
 		const { firstName, email, password, gender, country, rules } = this.state
 		return (
@@ -142,43 +99,3 @@ export class RegisterForm extends React.Component {
 		)
 	}
 }
-
-// export const RegisterForm = () => {
-// 	return (
-// 		<FlexContainer>
-// 			<StyledForm>
-// 				<StyledTitle>Register</StyledTitle>
-// 				<StyledLabel>
-// 					Name:
-// 					<StyledInput />
-// 				</StyledLabel>
-// 				<br />
-// 				<StyledLabel>
-// 					Email:
-// 					<StyledInput />
-// 				</StyledLabel>
-// 				<br />
-// 				<StyledLabel>
-// 					Password:
-// 					<StyledInput type='password' />
-// 				</StyledLabel>
-// 				<br />
-// 				<StyledLabel>Gender:</StyledLabel>
-// 				<input type='radio' name='gender' /> Male
-// 				<input type='radio' name='gender' /> Female
-// 				<br />
-// 				<br />
-// 				<StyledLabel>
-// 					Country:
-// 					<select>
-// 						<option value='ukraine'>Ukraine</option>
-// 						<option value='usa'>USA</option>
-// 						<option value='canada'>Canada</option>
-// 					</select>
-// 				</StyledLabel>
-// 				<br />
-// 				<StyledButton>Register</StyledButton>
-// 			</StyledForm>
-// 		</FlexContainer>
-// 	)
-// }
