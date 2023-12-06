@@ -13,6 +13,7 @@ export const EmployeesFilter = ({
 	return (
 		<div className={s.filtersWrapper}>
 			<h1>Filters</h1>
+			<button>Add user</button>
 			<div className={s.flex}>
 				<input className={s.input} placeholder='Enter username or email' onChange={onChangeSearch} value={searchStr} />
 				<label>

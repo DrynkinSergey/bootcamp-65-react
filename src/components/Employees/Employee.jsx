@@ -2,6 +2,7 @@ import { EmployeesFilter } from './EmployeesFilter'
 import { EmployeeList } from './EmployeeList'
 import userData from './../../assets/users.json'
 import React from 'react'
+import Modal from '../Modal/Modal'
 
 export class Employee extends React.Component {
 	state = {
@@ -9,14 +10,16 @@ export class Employee extends React.Component {
 		searchStr: '',
 		isAvailable: false,
 		activeSkill: 'all',
+		isOpenModal: false,
+		currentUser: null,
 	}
 
 	componentDidMount() {
 		const users = JSON.parse(window.localStorage.getItem('USERS_DATA'))
-		console.log(users)
+		// console.log(users)
 
 		if (users?.length) {
-			console.log('Дані завантажено!')
+			// console.log('Дані завантажено!')
 			this.setState({ users })
 			// alert(`Підгружено ${users.length} елементів!`)
 		}
@@ -50,6 +53,13 @@ export class Employee extends React.Component {
 		// console.log(skill)
 		this.setState({ activeSkill })
 	}
+	handleToggleModal = () => {
+		this.setState(prevState => ({ isOpenModal: !prevState.isOpenModal }))
+	}
+	handleClickReadMore = user => {
+		console.log(user)
+		this.setState({ currentUser: user, isOpenModal: true })
+	}
 
 	getFilteredData = () => {
 		return this.state.users
@@ -63,7 +73,7 @@ export class Employee extends React.Component {
 	}
 
 	render() {
-		const { users, searchStr, isAvailable, activeSkill } = this.state
+		const { users, searchStr, isAvailable, activeSkill, isOpenModal, currentUser } = this.state
 		const filteredUsers = this.getFilteredData()
 		return (
 			<>
@@ -75,7 +85,27 @@ export class Employee extends React.Component {
 					activeSkill={activeSkill}
 					onChangeActiveSkill={this.handleChangeActiveSkill}
 				/>
-				<EmployeeList users={filteredUsers} onDeleteUser={this.handleDeleteUser} />
+				<button onClick={this.handleToggleModal}>Open MODAL</button>
+				<EmployeeList
+					handleClickReadMore={this.handleClickReadMore}
+					users={filteredUsers}
+					onDeleteUser={this.handleDeleteUser}
+				/>
+				{isOpenModal ? (
+					<Modal title={currentUser.name} closeModal={this.handleToggleModal}>
+						<div>
+							<img
+								src='https://w7.pngwing.com/pngs/340/946/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes-thumbnail.png'
+								alt='avatar'
+								width={100}
+								height={100}
+							/>
+							<h2>Name: {currentUser.name}</h2>
+							<h2>Bio: {currentUser.bio}</h2>
+							<h3>{currentUser.isOpenToWork ? 'Готовий працювати ' : 'Відпочиває'}</h3>
+						</div>
+					</Modal>
+				) : null}
 			</>
 		)
 	}

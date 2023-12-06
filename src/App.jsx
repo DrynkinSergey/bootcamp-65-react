@@ -11,7 +11,7 @@ export const App = () => {
 		<>
 			{/* <Counter /> */}
 			<Employee />
-			{/* <Modal /> */}
+
 			{/* <RegisterForm /> */}
 			{/* <RegisterFormUncontrolled /> */}
 		</>
