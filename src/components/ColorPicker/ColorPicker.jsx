@@ -1,17 +1,23 @@
 import React from 'react'
 import { StyledBackgroundTheme, StyledColorPalette, StyledColor, StyledColorsList } from './ColorPicker.styled'
 
-export class ColorPicker extends React.Component {
+export class ColorPicker extends React.PureComponent {
 	state = {
 		currentColor: 'white',
 	}
+	componentDidUpdate() {
+		console.log('update')
+	}
+
+	// shouldComponentUpdate(nextProps, nextState) {
+	// 	return nextState.currentColor !== this.state.currentColor
+	// }
 
 	handleSetColor = color => {
 		this.setState({ currentColor: color })
 	}
 
 	render() {
-		console.log(this.props)
 		const { colors } = this.props
 		return (
 			<StyledBackgroundTheme $bg={this.state.currentColor}>
