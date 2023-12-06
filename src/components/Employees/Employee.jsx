@@ -11,6 +11,23 @@ export class Employee extends React.Component {
 		activeSkill: 'all',
 	}
 
+	componentDidMount() {
+		const users = JSON.parse(window.localStorage.getItem('USERS_DATA'))
+		console.log(users)
+
+		if (users?.length) {
+			console.log('Дані завантажено!')
+			this.setState({ users })
+			// alert(`Підгружено ${users.length} елементів!`)
+		}
+	}
+
+	componentDidUpdate(prevProps, prevState) {
+		if (prevState.users.length !== this.state.users.length) {
+			window.localStorage.setItem('USERS_DATA', JSON.stringify(this.state.users))
+		}
+	}
+
 	handleDeleteUser = id => {
 		// console.log(id)
 		this.setState(prevState => ({ users: prevState.users.filter(user => user.id !== id) }))
@@ -29,9 +46,9 @@ export class Employee extends React.Component {
 	// 	this.setState({ activeSkill: e.target.value })
 	// }
 
-	handleChangeActiveSkill = skill => {
-		console.log(skill)
-		this.setState({ activeSkill: skill })
+	handleChangeActiveSkill = activeSkill => {
+		// console.log(skill)
+		this.setState({ activeSkill })
 	}
 
 	getFilteredData = () => {
