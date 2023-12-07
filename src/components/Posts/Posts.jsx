@@ -17,13 +17,14 @@ export class Posts extends Component {
 
 	async componentDidMount() {
 		try {
-			this.setState({ loading: true })
+			this.setState({ loading: true, error: null })
 			// Робимо запит, отримуємо пости
 			const { posts, total } = await fetchPosts()
 			// Записуємо пости в стейт
 			this.setState({ posts, totalPosts: total })
 		} catch (error) {
 			console.log(error.message)
+			this.setState({ error: error.message })
 		} finally {
 			this.setState({ loading: false })
 		}
@@ -32,7 +33,7 @@ export class Posts extends Component {
 	async componentDidUpdate(_, prevState) {
 		if (!this.state.searchQuery && prevState.skip !== this.state.skip) {
 			try {
-				this.setState({ loading: true })
+				this.setState({ loading: true, error: null })
 				// Робимо запит, отримуємо пости
 				const { posts, total } = await fetchPosts({ skip: this.state.skip })
 				// Записуємо пости в стейт
@@ -49,7 +50,7 @@ export class Posts extends Component {
 			(this.state.searchQuery && prevState.skip !== this.state.skip)
 		) {
 			try {
-				this.setState({ loading: true })
+				this.setState({ loading: true, error: null })
 
 				// Робимо запит, отримуємо пости
 				const { posts, total } = await fetchPostsByQuery({ skip: this.state.skip, q: this.state.searchQuery })
@@ -72,12 +73,18 @@ export class Posts extends Component {
 	}
 
 	render() {
-		const { posts, totalPosts, loading } = this.state
+		const { posts, totalPosts, loading, error } = this.state
 		return (
 			<div>
 				<SearchForm handleSetSearchQuery={this.handleSetSearchQuery} />
 				<PostList posts={posts} />
-				{!posts.length && !loading && <h1>Smth went wrong! Try again</h1>}
+				{/* Якщо трапилась помилка і немає завантаження */}
+				{error && <h1>Server is dead, try again later</h1>}
+
+				{/* Якщо повернулось пустий массив */}
+				{!posts.length && !loading && !error && <h1>Smth went wrong! Try again</h1>}
+
+				{/* Якщо йде завантаження перший раз. коли не існує даних*/}
 				{loading && !posts.length && (
 					<div style={{ margin: '0 auto', display: 'flex', justifyContent: 'center' }}>
 						<Comment
@@ -92,6 +99,9 @@ export class Posts extends Component {
 						/>
 					</div>
 				)}
+
+				{/* Якщо нема даних або наша кількість постів привищує тотал  !!!! НЕ показувати кнопку */}
+
 				{posts.length && posts.length < totalPosts ? (
 					<StyledBtn onClick={this.handleLoadMore}>{loading ? 'Loading' : 'Load more'}</StyledBtn>
 				) : null}
