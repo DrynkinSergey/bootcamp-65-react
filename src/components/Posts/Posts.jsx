@@ -3,6 +3,7 @@ import SearchForm from './SearchForm'
 import { PostList } from './PostList'
 import styled from 'styled-components'
 import { fetchPosts, fetchPostsByQuery } from '../../services/api'
+import { Comment } from 'react-loader-spinner'
 
 export class Posts extends Component {
 	state = {
@@ -11,28 +12,35 @@ export class Posts extends Component {
 		error: null,
 		skip: 0,
 		searchQuery: '',
+		totalPosts: null,
 	}
 
 	async componentDidMount() {
 		try {
+			this.setState({ loading: true })
 			// Робимо запит, отримуємо пости
-			const { posts } = await fetchPosts()
+			const { posts, total } = await fetchPosts()
 			// Записуємо пости в стейт
-			this.setState({ posts })
+			this.setState({ posts, totalPosts: total })
 		} catch (error) {
 			console.log(error.message)
+		} finally {
+			this.setState({ loading: false })
 		}
 	}
 
 	async componentDidUpdate(_, prevState) {
 		if (!this.state.searchQuery && prevState.skip !== this.state.skip) {
 			try {
+				this.setState({ loading: true })
 				// Робимо запит, отримуємо пости
-				const { posts } = await fetchPosts({ skip: this.state.skip })
+				const { posts, total } = await fetchPosts({ skip: this.state.skip })
 				// Записуємо пости в стейт
-				this.setState(prevState => ({ posts: [...prevState.posts, ...posts] }))
+				this.setState(prevState => ({ posts: [...prevState.posts, ...posts], totalPosts: total }))
 			} catch (error) {
 				console.log(error.message)
+			} finally {
+				this.setState({ loading: false })
 			}
 		}
 
@@ -41,12 +49,16 @@ export class Posts extends Component {
 			(this.state.searchQuery && prevState.skip !== this.state.skip)
 		) {
 			try {
+				this.setState({ loading: true })
+
 				// Робимо запит, отримуємо пости
-				const { posts } = await fetchPostsByQuery({ skip: this.state.skip, q: this.state.searchQuery })
+				const { posts, total } = await fetchPostsByQuery({ skip: this.state.skip, q: this.state.searchQuery })
 				// Записуємо пости в стейт
-				this.setState(prevState => ({ posts: [...prevState.posts, ...posts] }))
+				this.setState(prevState => ({ posts: [...prevState.posts, ...posts], totalPosts: total }))
 			} catch (error) {
 				console.log(error.message)
+			} finally {
+				this.setState({ loading: false })
 			}
 		}
 	}
@@ -60,19 +72,36 @@ export class Posts extends Component {
 	}
 
 	render() {
-		const { posts } = this.state
+		const { posts, totalPosts, loading } = this.state
 		return (
 			<div>
 				<SearchForm handleSetSearchQuery={this.handleSetSearchQuery} />
 				<PostList posts={posts} />
-				<StyledBtn onClick={this.handleLoadMore}>Load more</StyledBtn>
+				{!posts.length && !loading && <h1>Smth went wrong! Try again</h1>}
+				{loading && !posts.length && (
+					<div style={{ margin: '0 auto', display: 'flex', justifyContent: 'center' }}>
+						<Comment
+							visible={true}
+							height='180'
+							width='180'
+							ariaLabel='comment-loading'
+							wrapperStyle={{}}
+							wrapperClass='comment-wrapper'
+							color='#fff'
+							backgroundColor='#F4442E'
+						/>
+					</div>
+				)}
+				{posts.length && posts.length < totalPosts ? (
+					<StyledBtn onClick={this.handleLoadMore}>{loading ? 'Loading' : 'Load more'}</StyledBtn>
+				) : null}
 			</div>
 		)
 	}
 }
 
 const StyledBtn = styled.button`
-	margin: 0 auto;
+	margin: 40px auto;
 	font-size: 1.5rem;
 	padding: 4px 12px;
 	display: block;
