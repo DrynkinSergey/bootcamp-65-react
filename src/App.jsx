@@ -1,11 +1,15 @@
 import React from 'react'
 import './styles.css'
-import { Posts } from './components/Posts/Posts'
+import { Employee } from './components/Employees/Employee'
+import { RegisterForm } from './components/RegisterForm/RegisterForm'
+import { RegisterFormUncontrolled } from './components/RegisterForm/RegisterFormUncontrolled'
 
 export const App = () => {
 	return (
 		<>
-			<Posts />
+			<Employee />
+			{/* <RegisterForm /> */}
+			{/* <RegisterFormUncontrolled /> */}
 		</>
 	)
 }
