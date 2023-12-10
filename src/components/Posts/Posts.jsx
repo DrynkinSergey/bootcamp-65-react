@@ -34,9 +34,7 @@ export class Posts extends Component {
 		if (!this.state.searchQuery && prevState.skip !== this.state.skip) {
 			try {
 				this.setState({ loading: true, error: null })
-				// Робимо запит, отримуємо пости
 				const { posts, total } = await fetchPosts({ skip: this.state.skip })
-				// Записуємо пости в стейт
 				this.setState(prevState => ({ posts: [...prevState.posts, ...posts], totalPosts: total }))
 			} catch (error) {
 				console.log(error.message)
@@ -52,9 +50,7 @@ export class Posts extends Component {
 			try {
 				this.setState({ loading: true, error: null })
 
-				// Робимо запит, отримуємо пости
 				const { posts, total } = await fetchPostsByQuery({ skip: this.state.skip, q: this.state.searchQuery })
-				// Записуємо пости в стейт
 				this.setState(prevState => ({ posts: [...prevState.posts, ...posts], totalPosts: total }))
 			} catch (error) {
 				console.log(error.message)

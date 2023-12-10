@@ -17,7 +17,6 @@ class Modal extends React.Component {
 		this.timeoutId = setTimeout(() => {
 			console.log('BADABUM!!!!!')
 		}, 3000)
-		console.log(this.intervalId)
 	}
 
 	componentWillUnmount() {
@@ -56,19 +55,5 @@ class Modal extends React.Component {
 		)
 	}
 }
-// const Modal = ({ children }) => {
-// return (
-// 	<ModalWrapper>
-// 		<ModalContent>
-// 			<>
-// 				<h1>Modal</h1>
-// 				<hr />
-// 			</>
-// 			<CloseButton>×</CloseButton>
-// 			{children}
-// 		</ModalContent>
-// 	</ModalWrapper>
-// )
-// }
 
 export default Modal

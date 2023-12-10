@@ -3,7 +3,6 @@ import { StyledInput, StyledTodo, StyledTodoList } from './TodoList.styled'
 import todosData from './../../assets/todos.json'
 import { Flex } from '../../styles/Global'
 import React from 'react'
-import { nanoid } from 'nanoid'
 
 export class TodoList extends React.Component {
 	state = {
@@ -12,8 +11,6 @@ export class TodoList extends React.Component {
 	}
 
 	handleRemoveTodo = id => {
-		// const newTodoArray = this.state.todos.filter(item => item.id !== id)
-		// console.log(newTodoArray)
 		this.setState(prevState => ({ todos: prevState.todos.filter(item => item.id !== id) }))
 	}
 
@@ -33,10 +30,6 @@ export class TodoList extends React.Component {
 		}))
 	}
 	handleToggleTodo = id => {
-		console.log(id)
-		// this.setState(prevState => ({
-		// 	todos: prevState.todos.map(item => (item.id === id ? { ...item, completed: !item.completed } : item)),
-		// }))
 		this.setState(prevState => ({
 			todos: prevState.todos.map(item => {
 				if (item.id === id) {
@@ -81,23 +74,3 @@ export class TodoList extends React.Component {
 		)
 	}
 }
-// export const TodoList = () => {
-// return (
-// 	<div>
-// 		<StyledTodoList>
-// 			<Flex $height='auto'>
-// 				<StyledInput type='text' />
-// 				<StyledButton>Add</StyledButton>
-// 			</Flex>
-// 			{todos.map(item => (
-// 				<StyledTodo>
-// 					<input type='checkbox' />
-// 					<span>{item.todo}</span>
-// 					<StyledButton size='18px'>Delete</StyledButton>
-// 				</StyledTodo>
-// 			))}
-// 			<button>Clear</button>
-// 		</StyledTodoList>
-// 	</div>
-// )
-// }

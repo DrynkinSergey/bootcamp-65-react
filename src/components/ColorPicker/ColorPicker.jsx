@@ -1,5 +1,6 @@
 import React from 'react'
 import { StyledBackgroundTheme, StyledColorPalette, StyledColor, StyledColorsList } from './ColorPicker.styled'
+import colors from '../../assets/colors.json'
 
 export class ColorPicker extends React.PureComponent {
 	state = {
@@ -9,16 +10,11 @@ export class ColorPicker extends React.PureComponent {
 		console.log('update')
 	}
 
-	// shouldComponentUpdate(nextProps, nextState) {
-	// 	return nextState.currentColor !== this.state.currentColor
-	// }
-
 	handleSetColor = color => {
 		this.setState({ currentColor: color })
 	}
 
 	render() {
-		const { colors } = this.props
 		return (
 			<StyledBackgroundTheme $bg={this.state.currentColor}>
 				<StyledColorPalette>
@@ -35,16 +31,3 @@ export class ColorPicker extends React.PureComponent {
 		)
 	}
 }
-// export const ColorPicker = ({ colors = [] }) => {
-// return (
-// 	<StyledBackgroundTheme>
-// 		<StyledColorPalette>
-// 			<StyledColorsList>
-// 				{colors.map(item => (
-// 					<StyledColor key={item.id}>{item.color}</StyledColor>
-// 				))}
-// 			</StyledColorsList>
-// 		</StyledColorPalette>
-// 	</StyledBackgroundTheme>
-// )
-// }

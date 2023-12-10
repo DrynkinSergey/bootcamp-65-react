@@ -16,12 +16,9 @@ export class Employee extends React.Component {
 
 	componentDidMount() {
 		const users = JSON.parse(window.localStorage.getItem('USERS_DATA'))
-		// console.log(users)
 
 		if (users?.length) {
-			// console.log('Дані завантажено!')
 			this.setState({ users })
-			// alert(`Підгружено ${users.length} елементів!`)
 		}
 	}
 
@@ -32,11 +29,9 @@ export class Employee extends React.Component {
 	}
 
 	handleDeleteUser = id => {
-		// console.log(id)
 		this.setState(prevState => ({ users: prevState.users.filter(user => user.id !== id) }))
 	}
 	handleSetSearch = e => {
-		// console.log(e.target.value)
 		this.setState({ searchStr: e.target.value })
 	}
 
@@ -44,13 +39,7 @@ export class Employee extends React.Component {
 		this.setState(prevState => ({ isAvailable: !prevState.isAvailable }))
 	}
 
-	// handleChangeActiveSkill = e => {
-	// 	// console.log(skill)
-	// 	this.setState({ activeSkill: e.target.value })
-	// }
-
 	handleChangeActiveSkill = activeSkill => {
-		// console.log(skill)
 		this.setState({ activeSkill })
 	}
 	handleToggleModal = () => {
@@ -73,7 +62,7 @@ export class Employee extends React.Component {
 	}
 
 	render() {
-		const { users, searchStr, isAvailable, activeSkill, isOpenModal, currentUser } = this.state
+		const { searchStr, isAvailable, activeSkill, isOpenModal, currentUser } = this.state
 		const filteredUsers = this.getFilteredData()
 		return (
 			<>
@@ -110,12 +99,3 @@ export class Employee extends React.Component {
 		)
 	}
 }
-
-// export const Employee = () => {
-// 	return (
-// 		<>
-// 			<EmployeesFilter />
-// 			<EmployeeList users={userData} />
-// 		</>
-// 	)
-// }

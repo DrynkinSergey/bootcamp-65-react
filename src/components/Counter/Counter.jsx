@@ -1,5 +1,5 @@
 import React from 'react'
-import { Flex, FlexContainer, StyledButton, StyledCounter } from './Counter.styled'
+import { FlexContainer, StyledCounter } from './Counter.styled'
 import { Buttons } from './Buttons'
 
 export class Counter extends React.Component {
