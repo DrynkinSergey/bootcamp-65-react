@@ -1,10 +1,34 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FlexContainer, StyledCounter } from './Counter.styled'
 import { Buttons } from './Buttons'
 
 export const Counter = () => {
 	const [counter, setCounter] = useState(0)
 	const [step, setStep] = useState(1)
+
+	// Виконається лише один раз!
+	useEffect(() => {
+		console.log('Mount - Монтування пройшло!')
+	}, [])
+
+	// Виконається кожен раз, коли змінюється 'counter'!
+
+	useEffect(() => {
+		console.log('Update - Оновлення компонента через лічильник!')
+		console.log('counter =>>>>', counter)
+	}, [counter])
+
+	// Виконається кожен раз, коли змінюється 'step'!
+
+	useEffect(() => {
+		console.log('Step змінився!')
+	}, [step])
+
+	// Виконається кожен раз, коли змінюється 'counter' або 'step'!
+
+	useEffect(() => {
+		console.log('Update будь чого')
+	}, [counter, step])
 
 	const handleIncrement = () => {
 		// this.setState(prevState => ({ counter: prevState.counter + prevState.step }))
@@ -34,12 +58,7 @@ export const Counter = () => {
 			<StyledCounter>
 				<h1>{counter}</h1>
 				<input type='text' value={step} onChange={handleChangeStep} />
-				<Buttons
-					counter={counter}
-					handleDecrement={handleDecrement}
-					handleIncrement={handleIncrement}
-					handleReset={handleReset}
-				/>
+				<Buttons handleDecrement={handleDecrement} handleIncrement={handleIncrement} handleReset={handleReset} />
 			</StyledCounter>
 		</FlexContainer>
 	)

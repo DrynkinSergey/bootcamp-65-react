@@ -2,11 +2,6 @@ import React from 'react'
 import { Flex, StyledButton } from './Counter.styled'
 
 export class Buttons extends React.Component {
-	componentDidUpdate(prevProps) {
-		if (prevProps.counter !== this.props.counter) {
-			console.log('Counter was changed')
-		}
-	}
 	render() {
 		const { handleDecrement, handleIncrement, handleReset } = this.props
 		return (
