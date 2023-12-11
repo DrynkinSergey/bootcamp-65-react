@@ -1,110 +1,189 @@
-import React, { Component } from 'react'
+import React, { Component, useEffect, useState } from 'react'
 import SearchForm from './SearchForm'
 import { PostList } from './PostList'
 import styled from 'styled-components'
 import { fetchPosts, fetchPostsByQuery } from '../../services/api'
 import { Comment } from 'react-loader-spinner'
 
-export class Posts extends Component {
-	state = {
-		posts: [],
-		loading: false,
-		error: null,
-		skip: 0,
-		searchQuery: '',
-		totalPosts: null,
-	}
+export const Posts = () => {
+	const [posts, setPosts] = useState([])
+	const [loading, setLoading] = useState(false)
+	const [error, setError] = useState(null)
+	const [skip, setSkip] = useState(0)
+	const [searchQuery, setSearchQuery] = useState('')
+	const [totalPosts, setTotalPosts] = useState(null)
 
-	async componentDidMount() {
-		try {
-			this.setState({ loading: true, error: null })
-			// Робимо запит, отримуємо пости
-			const { posts, total } = await fetchPosts()
-			// Записуємо пости в стейт
-			this.setState({ posts, totalPosts: total })
-		} catch (error) {
-			console.log(error.message)
-			this.setState({ error: error.message })
-		} finally {
-			this.setState({ loading: false })
-		}
-	}
-
-	async componentDidUpdate(_, prevState) {
-		if (!this.state.searchQuery && prevState.skip !== this.state.skip) {
+	useEffect(() => {
+		const getData = async () => {
 			try {
-				this.setState({ loading: true, error: null })
-				const { posts, total } = await fetchPosts({ skip: this.state.skip })
-				this.setState(prevState => ({ posts: [...prevState.posts, ...posts], totalPosts: total }))
+				setLoading(true)
+				setError(null)
+
+				//Перевіряється чи є у нас строка пошуку
+				const { posts, total } = searchQuery
+					? // Якщо є - зробити запит по цій строці
+					  await fetchPostsByQuery({ skip, q: searchQuery })
+					: // Якщо нема - зробити запит без ключового слова
+					  await fetchPosts({ skip })
+
+				setPosts(prev => [...prev, ...posts])
+				setTotalPosts(total)
 			} catch (error) {
-				console.log(error.message)
+				setError(error.message)
 			} finally {
-				this.setState({ loading: false })
+				setLoading(false)
 			}
 		}
 
-		if (
-			(this.state.searchQuery && prevState.searchQuery !== this.state.searchQuery) ||
-			(this.state.searchQuery && prevState.skip !== this.state.skip)
-		) {
-			try {
-				this.setState({ loading: true, error: null })
+		getData()
+	}, [searchQuery, skip])
 
-				const { posts, total } = await fetchPostsByQuery({ skip: this.state.skip, q: this.state.searchQuery })
-				this.setState(prevState => ({ posts: [...prevState.posts, ...posts], totalPosts: total }))
-			} catch (error) {
-				console.log(error.message)
-			} finally {
-				this.setState({ loading: false })
-			}
-		}
+	const handleLoadMore = () => {
+		// setState(prevState => ({ skip: prevState.skip + 4 }))
+		setSkip(prev => prev + 4)
+	}
+	const handleSetSearchQuery = text => {
+		// setState({ searchQuery: text, posts: [], skip: 0 })
+		setSearchQuery(text)
+		setPosts([])
+		setSkip(0)
 	}
 
-	handleLoadMore = () => {
-		this.setState(prevState => ({ skip: prevState.skip + 4 }))
-	}
+	return (
+		<div>
+			<SearchForm handleSetSearchQuery={handleSetSearchQuery} />
+			<PostList posts={posts} />
+			{/* Якщо трапилась помилка і немає завантаження */}
+			{error && <h1>Server is dead, try again later</h1>}
 
-	handleSetSearchQuery = text => {
-		this.setState({ searchQuery: text, posts: [], skip: 0 })
-	}
+			{/* Якщо повернулось пустий массив */}
+			{!posts.length && !loading && !error && <h1>Smth went wrong! Try again</h1>}
 
-	render() {
-		const { posts, totalPosts, loading, error } = this.state
-		return (
-			<div>
-				<SearchForm handleSetSearchQuery={this.handleSetSearchQuery} />
-				<PostList posts={posts} />
-				{/* Якщо трапилась помилка і немає завантаження */}
-				{error && <h1>Server is dead, try again later</h1>}
+			{/* Якщо йде завантаження перший раз. коли не існує даних*/}
+			{loading && !posts.length && (
+				<div style={{ margin: '0 auto', display: 'flex', justifyContent: 'center' }}>
+					<Comment
+						visible={true}
+						height='180'
+						width='180'
+						ariaLabel='comment-loading'
+						wrapperStyle={{}}
+						wrapperClass='comment-wrapper'
+						color='#fff'
+						backgroundColor='#F4442E'
+					/>
+				</div>
+			)}
 
-				{/* Якщо повернулось пустий массив */}
-				{!posts.length && !loading && !error && <h1>Smth went wrong! Try again</h1>}
+			{/* Якщо нема даних або наша кількість постів привищує тотал  !!!! НЕ показувати кнопку */}
 
-				{/* Якщо йде завантаження перший раз. коли не існує даних*/}
-				{loading && !posts.length && (
-					<div style={{ margin: '0 auto', display: 'flex', justifyContent: 'center' }}>
-						<Comment
-							visible={true}
-							height='180'
-							width='180'
-							ariaLabel='comment-loading'
-							wrapperStyle={{}}
-							wrapperClass='comment-wrapper'
-							color='#fff'
-							backgroundColor='#F4442E'
-						/>
-					</div>
-				)}
-
-				{/* Якщо нема даних або наша кількість постів привищує тотал  !!!! НЕ показувати кнопку */}
-
-				{posts.length && posts.length < totalPosts ? (
-					<StyledBtn onClick={this.handleLoadMore}>{loading ? 'Loading' : 'Load more'}</StyledBtn>
-				) : null}
-			</div>
-		)
-	}
+			{posts.length && posts.length < totalPosts ? (
+				<StyledBtn onClick={handleLoadMore}>{loading ? 'Loading' : 'Load more'}</StyledBtn>
+			) : null}
+		</div>
+	)
 }
+
+// export class Posts extends Component {
+// 	state = {
+// 		posts: [],
+// 		loading: false,
+// 		error: null,
+// 		skip: 0,
+// 		searchQuery: '',
+// 		totalPosts: null,
+// 	}
+
+// 	async componentDidMount() {
+// 		try {
+// 			setState({ loading: true, error: null })
+// 			// Робимо запит, отримуємо пости
+// 			const { posts, total } = await fetchPosts()
+// 			// Записуємо пости в стейт
+// 			setState({ posts, totalPosts: total })
+// 		} catch (error) {
+// 			console.log(error.message)
+// 			setState({ error: error.message })
+// 		} finally {
+// 			setState({ loading: false })
+// 		}
+// 	}
+
+// 	async componentDidUpdate(_, prevState) {
+// 		if (!state.searchQuery && prevState.skip !== state.skip) {
+// 			try {
+// 				setState({ loading: true, error: null })
+// 				const { posts, total } = await fetchPosts({ skip: state.skip })
+// 				setState(prevState => ({ posts: [...prevState.posts, ...posts], totalPosts: total }))
+// 			} catch (error) {
+// 				console.log(error.message)
+// 			} finally {
+// 				setState({ loading: false })
+// 			}
+// 		}
+
+// 		if (
+// 			(state.searchQuery && prevState.searchQuery !== state.searchQuery) ||
+// 			(state.searchQuery && prevState.skip !== state.skip)
+// 		) {
+// 			try {
+// 				setState({ loading: true, error: null })
+
+// 				const { posts, total } = await fetchPostsByQuery({ skip: state.skip, q: state.searchQuery })
+// 				setState(prevState => ({ posts: [...prevState.posts, ...posts], totalPosts: total }))
+// 			} catch (error) {
+// 				console.log(error.message)
+// 			} finally {
+// 				setState({ loading: false })
+// 			}
+// 		}
+// 	}
+
+// 	handleLoadMore = () => {
+// 		setState(prevState => ({ skip: prevState.skip + 4 }))
+// 	}
+
+// 	handleSetSearchQuery = text => {
+// 		setState({ searchQuery: text, posts: [], skip: 0 })
+// 	}
+
+// 	render() {
+// 		const { posts, totalPosts, loading, error } = state
+// return (
+// 	<div>
+// 		<SearchForm handleSetSearchQuery={handleSetSearchQuery} />
+// 		<PostList posts={posts} />
+// 		{/* Якщо трапилась помилка і немає завантаження */}
+// 		{error && <h1>Server is dead, try again later</h1>}
+
+// 		{/* Якщо повернулось пустий массив */}
+// 		{!posts.length && !loading && !error && <h1>Smth went wrong! Try again</h1>}
+
+// 		{/* Якщо йде завантаження перший раз. коли не існує даних*/}
+// 		{loading && !posts.length && (
+// 			<div style={{ margin: '0 auto', display: 'flex', justifyContent: 'center' }}>
+// 				<Comment
+// 					visible={true}
+// 					height='180'
+// 					width='180'
+// 					ariaLabel='comment-loading'
+// 					wrapperStyle={{}}
+// 					wrapperClass='comment-wrapper'
+// 					color='#fff'
+// 					backgroundColor='#F4442E'
+// 				/>
+// 			</div>
+// 		)}
+
+// 		{/* Якщо нема даних або наша кількість постів привищує тотал  !!!! НЕ показувати кнопку */}
+
+// 		{posts.length && posts.length < totalPosts ? (
+// 			<StyledBtn onClick={handleLoadMore}>{loading ? 'Loading' : 'Load more'}</StyledBtn>
+// 		) : null}
+// 	</div>
+// )
+// 	}
+// }
 
 const StyledBtn = styled.button`
 	margin: 40px auto;

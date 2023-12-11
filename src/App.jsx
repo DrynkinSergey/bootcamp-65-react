@@ -10,11 +10,11 @@ import './styles.css'
 export const App = () => {
 	return (
 		<>
-			<Counter />
-			<ColorPicker />
-			<TodoList />
-			<Employee />
-			<RegisterForm />
+			{/* <Counter /> */}
+			{/* <ColorPicker /> */}
+			{/* <TodoList /> */}
+			{/* <Employee /> */}
+			{/* <RegisterForm /> */}
 			<Posts />
 			{/* <Modal /> */}
 		</>
