@@ -6,7 +6,6 @@ export const ColorPicker = () => {
 	const [currentColor, setCurrentColor] = useState('white')
 
 	const handleSetColor = color => {
-		// this.setState({ currentColor: color })
 		setCurrentColor(color)
 	}
 	return (
@@ -24,32 +23,3 @@ export const ColorPicker = () => {
 		</StyledBackgroundTheme>
 	)
 }
-// export class ColorPicker extends React.PureComponent {
-// 	state = {
-// 		currentColor: 'white',
-// 	}
-// 	componentDidUpdate() {
-// 		console.log('update')
-// 	}
-
-// 	handleSetColor = color => {
-// 		this.setState({ currentColor: color })
-// 	}
-
-// 	render() {
-// return (
-// 	<StyledBackgroundTheme $bg={this.state.currentColor}>
-// 		<StyledColorPalette>
-// 			<h1>Наш обраний колір: {this.state.currentColor}</h1>
-// 			<StyledColorsList>
-// 				{colors.map(item => (
-// 					<StyledColor key={item.id} onClick={() => this.handleSetColor(item.color)}>
-// 						{item.color}
-// 					</StyledColor>
-// 				))}
-// 			</StyledColorsList>
-// 		</StyledColorPalette>
-// 	</StyledBackgroundTheme>
-// )
-// 	}
-// }
