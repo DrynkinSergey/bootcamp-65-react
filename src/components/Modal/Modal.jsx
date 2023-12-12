@@ -18,7 +18,6 @@ export function Modal({ children, closeModal, title }) {
 		document.addEventListener('keydown', handleKeyDown)
 
 		return () => {
-			console.log('Close modal')
 			document.removeEventListener('keydown', handleKeyDown)
 		}
 	}, [closeModal])
