@@ -1,17 +1,20 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
 import SearchForm from './SearchForm'
 import { PostList } from './PostList'
 import styled from 'styled-components'
 import { fetchPosts, fetchPostsByQuery } from '../../services/api'
 import { Comment } from 'react-loader-spinner'
+import { UserContext } from '../../context/ContextProvider'
 
-export const Posts = ({ user }) => {
+export const Posts = () => {
 	const [posts, setPosts] = useState([])
 	const [loading, setLoading] = useState(false)
 	const [error, setError] = useState(null)
 	const [skip, setSkip] = useState(0)
 	const [searchQuery, setSearchQuery] = useState('')
 	const [totalPosts, setTotalPosts] = useState(null)
+
+	const { user, logout } = useContext(UserContext)
 
 	// xd01r10
 	// r010dx
@@ -54,8 +57,8 @@ export const Posts = ({ user }) => {
 
 	return (
 		<div>
-			<SearchForm handleSetSearchQuery={handleSetSearchQuery} />
-			<PostList user={user} posts={posts} />
+			<SearchForm logout={logout} user={user} handleSetSearchQuery={handleSetSearchQuery} />
+			<PostList posts={posts} />
 			{/* Якщо трапилась помилка і немає завантаження */}
 			{error && <h1>Server is dead, try again later</h1>}
 

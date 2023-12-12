@@ -1,29 +1,38 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react'
+import React, { useEffect, useMemo, useReducer, useRef, useState } from 'react'
 import { FlexContainer, StyledCounter } from './Counter.styled'
 import { Buttons } from './Buttons'
+import { counterReducer } from '../../reducer/counterReducer'
 
 export const Counter = () => {
-	const [counter, setCounter] = useState(0)
-	const [step, setStep] = useState(1)
+	// 1. Створення початкового значення
+	const initialState = {
+		counter: 0,
+		step: 1,
+	}
+
+	// 3. Викликати хук useReducer
+	const [state, dispatch] = useReducer(counterReducer, initialState)
+
+	const { step, counter } = state
 
 	const myRef = useRef(null)
 	const renderCount = useRef(1)
 	const isFirstRender = useRef(true)
 
 	useEffect(() => {
-		console.log(myRef)
-		console.log(myRef.current)
-		console.log(isFirstRender)
-		myRef.current.focus()
-		setTimeout(() => {
-			myRef.current.value = 201
-		}, 3000)
+		// console.log(myRef)
+		// console.log(myRef.current)
+		// console.log(isFirstRender)
+		// myRef.current.focus()
+		// setTimeout(() => {
+		// 	myRef.current.value = 201
+		// }, 3000)
 	}, [])
 
 	useEffect(() => {
 		// Your code here
 		renderCount.current++
-		console.log('Кількість рендерів на сторінці ', renderCount.current)
+		// console.log('Кількість рендерів на сторінці ', renderCount.current)
 	})
 
 	useEffect(() => {
@@ -31,24 +40,28 @@ export const Counter = () => {
 			isFirstRender.current = false
 			return
 		}
-		console.log('Hello')
+		// console.log('Hello')
 	}, [counter])
 
 	const handleIncrement = () => {
-		setCounter(prevState => prevState + step)
+		dispatch({ type: 'INCREMENT' })
+		// setCounter(prevState => prevState + step)
 	}
 
 	const handleDecrement = () => {
-		setCounter(prevState => prevState - step)
+		dispatch({ type: 'DECREMENT' })
+		// setCounter(prevState => prevState - step)
 	}
 
 	const handleReset = () => {
-		setCounter(0)
-		setStep(1)
+		dispatch({ type: 'RESET' })
+		// setCounter(0)
+		// setStep(1)
 	}
 
 	const handleChangeStep = e => {
-		setStep(+e.target.value)
+		dispatch({ type: 'SET_STEP', payload: +e.target.value })
+		// setStep(+e.target.value)
 	}
 
 	const calcResult = () => {

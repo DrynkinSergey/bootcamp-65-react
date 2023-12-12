@@ -16,6 +16,8 @@ export default class SearchForm extends Component {
 	render() {
 		return (
 			<StyledWrapperForm>
+				<h2>{this.props.user}</h2>
+				<button onClick={this.props.logout}>Exit</button>
 				<StyledForm onSubmit={this.handleSubmit}>
 					<input value={this.state.query} onChange={this.handleChangeQuery} type='text' />
 					<button>Search</button>

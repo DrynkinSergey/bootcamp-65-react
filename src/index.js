@@ -3,6 +3,7 @@ import { App } from './App'
 import { ThemeProvider } from 'styled-components'
 import { theme } from './styles/theme'
 import { createContext } from 'react'
+import { ContextProvider } from './context/ContextProvider'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 
@@ -22,8 +23,8 @@ const contextValue = {
 
 root.render(
 	<ThemeProvider theme={theme}>
-		<MyContext.Provider value={contextValue}>
+		<ContextProvider>
 			<App user={user} />
-		</MyContext.Provider>
+		</ContextProvider>
 	</ThemeProvider>
 )
