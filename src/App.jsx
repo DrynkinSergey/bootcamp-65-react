@@ -7,7 +7,7 @@ import { RegisterForm } from './components/RegisterForm/RegisterForm'
 import { TodoList } from './components/TodoList/TodoList'
 import './styles.css'
 
-export const App = () => {
+export const App = ({ user }) => {
 	return (
 		<>
 			{/* <Counter /> */}
@@ -15,7 +15,7 @@ export const App = () => {
 			{/* <TodoList /> */}
 			{/* <Employee /> */}
 			{/* <RegisterForm /> */}
-			<Posts />
+			<Posts user={user} />
 			{/* <Modal /> */}
 		</>
 	)

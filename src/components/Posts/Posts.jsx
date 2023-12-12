@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import { fetchPosts, fetchPostsByQuery } from '../../services/api'
 import { Comment } from 'react-loader-spinner'
 
-export const Posts = () => {
+export const Posts = ({ user }) => {
 	const [posts, setPosts] = useState([])
 	const [loading, setLoading] = useState(false)
 	const [error, setError] = useState(null)
@@ -15,12 +15,6 @@ export const Posts = () => {
 
 	// xd01r10
 	// r010dx
-	// r001xr
-	// r001xr
-	// r001xr
-	// r001xr
-	// r001xr
-	// r001xr
 	// r001xr
 	// r001xr
 
@@ -61,7 +55,7 @@ export const Posts = () => {
 	return (
 		<div>
 			<SearchForm handleSetSearchQuery={handleSetSearchQuery} />
-			<PostList posts={posts} />
+			<PostList user={user} posts={posts} />
 			{/* Якщо трапилась помилка і немає завантаження */}
 			{error && <h1>Server is dead, try again later</h1>}
 
