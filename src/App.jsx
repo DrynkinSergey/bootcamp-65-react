@@ -10,12 +10,12 @@ import './styles.css'
 export const App = () => {
 	return (
 		<>
-			<Counter />
+			{/* <Counter /> */}
 			{/* <ColorPicker /> */}
 			{/* <TodoList /> */}
 			{/* <Employee /> */}
 			{/* <RegisterForm /> */}
-			{/* <Posts /> */}
+			<Posts />
 			{/* <Modal /> */}
 		</>
 	)

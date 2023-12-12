@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import SearchForm from './SearchForm'
 import { PostList } from './PostList'
 import styled from 'styled-components'
@@ -13,30 +13,41 @@ export const Posts = () => {
 	const [searchQuery, setSearchQuery] = useState('')
 	const [totalPosts, setTotalPosts] = useState(null)
 
-	useEffect(() => {
-		const getData = async () => {
-			try {
-				setLoading(true)
-				setError(null)
+	// xd01r10
+	// r010dx
+	// r001xr
+	// r001xr
+	// r001xr
+	// r001xr
+	// r001xr
+	// r001xr
+	// r001xr
+	// r001xr
 
-				//Перевіряється чи є у нас строка пошуку
-				const { posts, total } = searchQuery
-					? // Якщо є - зробити запит по цій строці
-					  await fetchPostsByQuery({ skip, q: searchQuery })
-					: // Якщо нема - зробити запит без ключового слова
-					  await fetchPosts({ skip })
+	const getData = useCallback(async () => {
+		try {
+			setLoading(true)
+			setError(null)
 
-				setPosts(prev => [...prev, ...posts])
-				setTotalPosts(total)
-			} catch (error) {
-				setError(error.message)
-			} finally {
-				setLoading(false)
-			}
+			//Перевіряється чи є у нас строка пошуку
+			const { posts, total } = searchQuery
+				? // Якщо є - зробити запит по цій строці
+				  await fetchPostsByQuery({ skip, q: searchQuery })
+				: // Якщо нема - зробити запит без ключового слова
+				  await fetchPosts({ skip })
+
+			setPosts(prev => [...prev, ...posts])
+			setTotalPosts(total)
+		} catch (error) {
+			setError(error.message)
+		} finally {
+			setLoading(false)
 		}
+	}, [skip, searchQuery])
 
+	useEffect(() => {
 		getData()
-	}, [searchQuery, skip])
+	}, [searchQuery, skip, getData])
 
 	const handleLoadMore = () => {
 		setSkip(prev => prev + 4)

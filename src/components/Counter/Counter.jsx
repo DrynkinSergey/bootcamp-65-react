@@ -1,10 +1,38 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { FlexContainer, StyledCounter } from './Counter.styled'
 import { Buttons } from './Buttons'
 
 export const Counter = () => {
 	const [counter, setCounter] = useState(0)
 	const [step, setStep] = useState(1)
+
+	const myRef = useRef(null)
+	const renderCount = useRef(1)
+	const isFirstRender = useRef(true)
+
+	useEffect(() => {
+		console.log(myRef)
+		console.log(myRef.current)
+		console.log(isFirstRender)
+		myRef.current.focus()
+		setTimeout(() => {
+			myRef.current.value = 201
+		}, 3000)
+	}, [])
+
+	useEffect(() => {
+		// Your code here
+		renderCount.current++
+		console.log('Кількість рендерів на сторінці ', renderCount.current)
+	})
+
+	useEffect(() => {
+		if (isFirstRender.current) {
+			isFirstRender.current = false
+			return
+		}
+		console.log('Hello')
+	}, [counter])
 
 	const handleIncrement = () => {
 		setCounter(prevState => prevState + step)
@@ -41,7 +69,7 @@ export const Counter = () => {
 			<StyledCounter>
 				<h2>{result}</h2>
 				<h1>{counter}</h1>
-				<input type='text' value={step} onChange={handleChangeStep} />
+				<input ref={myRef} type='text' value={step} onChange={handleChangeStep} />
 				<Buttons handleDecrement={handleDecrement} handleIncrement={handleIncrement} handleReset={handleReset} />
 			</StyledCounter>
 		</FlexContainer>
