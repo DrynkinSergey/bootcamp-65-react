@@ -38,11 +38,12 @@ const StyledHeader = styled.header`
 	}
 `
 
-const StyledNavLink = styled(NavLink)`
+export const StyledNavLink = styled(NavLink)`
 	text-decoration: none;
 	color: white;
 	font-weight: 700;
 	font-size: 1.5rem;
+	margin-right: 5px;
 	&.active {
 		color: black;
 		text-decoration: underline;

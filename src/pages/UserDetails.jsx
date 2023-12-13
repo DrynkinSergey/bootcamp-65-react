@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
-import { Link, Outlet, useNavigate, useParams } from 'react-router-dom'
+import { Outlet, useNavigate, useParams } from 'react-router-dom'
 import { fetchUserById } from '../services/api'
 import { useHttp } from '../hooks/useHttp'
+import { StyledNavLink } from '../components/Layout'
 
 const UserDetails = () => {
 	const { userId } = useParams()
@@ -32,8 +32,8 @@ const UserDetails = () => {
 
 			<hr />
 			{/* users/21/info */}
-			<Link to='info'>info by user</Link>
-			<Link to='posts'>posts by user</Link>
+			<StyledNavLink to='info'>info by user</StyledNavLink>
+			<StyledNavLink to='posts'>posts by user</StyledNavLink>
 			<Outlet />
 		</div>
 	)
