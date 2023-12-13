@@ -1,6 +1,9 @@
 import React from 'react'
 import { CloseButton, ModalContent, ModalWrapper } from './Modal.styled'
 import { useEffect } from 'react'
+import { createPortal } from 'react-dom'
+
+const modalRoot = document.querySelector('#modalRoot')
 
 export function Modal({ children, closeModal, title }) {
 	const handleBackdropClick = e => {
@@ -21,7 +24,7 @@ export function Modal({ children, closeModal, title }) {
 			document.removeEventListener('keydown', handleKeyDown)
 		}
 	}, [closeModal])
-	return (
+	return createPortal(
 		<ModalWrapper onClick={handleBackdropClick}>
 			<ModalContent>
 				<>
@@ -31,7 +34,8 @@ export function Modal({ children, closeModal, title }) {
 				<CloseButton onClick={closeModal}>×</CloseButton>
 				{children}
 			</ModalContent>
-		</ModalWrapper>
+		</ModalWrapper>,
+		modalRoot
 	)
 }
 

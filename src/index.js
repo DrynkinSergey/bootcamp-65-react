@@ -10,6 +10,7 @@ root.render(
 	<ThemeProvider theme={theme}>
 		{/* Обов'язково для gh-pages */}
 		{/* <BrowserRouter basename='/goit-hw-05-movies'> */}
+		{/* 1. Додати BrowserRouter щоб працювали наші маршрути */}
 		<BrowserRouter>
 			<App />
 		</BrowserRouter>
