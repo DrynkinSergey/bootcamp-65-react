@@ -60,4 +60,8 @@ const StyledWrapper = styled.div`
 
 	flex-direction: column;
 	gap: 10px;
+	footer {
+		background-color: gold;
+		text-align: center;
+	}
 `

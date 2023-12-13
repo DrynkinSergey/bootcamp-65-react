@@ -4,6 +4,7 @@ import { fetchPostsByUserId } from '../../services/api'
 import Modal from '../Modal/Modal'
 import { useModal } from '../../hooks/useModal'
 import { useHttp } from '../../hooks/useHttp'
+import styled from 'styled-components'
 
 const Posts = () => {
 	const { userId } = useParams()
@@ -25,9 +26,9 @@ const Posts = () => {
 			<h2>Posts</h2>
 			<ol>
 				{posts?.map(item => (
-					<li onClick={() => handleShowPost(item)} key={item.id}>
+					<StyledItem onClick={() => handleShowPost(item)} key={item.id}>
 						{item.title}
-					</li>
+					</StyledItem>
 				))}
 			</ol>
 			{isOpen ? (
@@ -47,3 +48,10 @@ const Posts = () => {
 }
 
 export default Posts
+export const StyledItem = styled.li`
+	cursor: pointer;
+	font-size: 1.3rem;
+	&:hover {
+		color: blue;
+	}
+`
