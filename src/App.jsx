@@ -10,6 +10,7 @@ import { Info } from './components/usersNestedRoutes/Info'
 // import Posts from './components/usersNestedRoutes/Posts'
 import Photos from './pages/Photos'
 import { PhotoDetails } from './pages/PhotoDetails'
+import { Register } from './pages/Register'
 
 const About = lazy(() => import('./pages/About'))
 const Users = lazy(() => import('./pages/Users'))
@@ -36,6 +37,9 @@ export const App = () => {
 						<Route path='info' element={<Info />} />
 						<Route path='posts' element={<Posts />} />
 					</Route>
+
+					{/* REGISTER AND LOGIN */}
+					<Route path='register' element={<Register />} />
 				</Route>
 				{/* 6. Редірект */}
 				<Route path='about-us' element={<Navigate to='/about' />} />
