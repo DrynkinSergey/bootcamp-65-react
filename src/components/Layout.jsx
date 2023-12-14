@@ -11,6 +11,7 @@ const Layout = () => {
 					<StyledNavLink to='/'>Home</StyledNavLink>
 					<StyledNavLink to='/about'>About</StyledNavLink>
 					<StyledNavLink to='/users'>Users</StyledNavLink>
+					<StyledNavLink to='/photos'>Photos</StyledNavLink>
 				</nav>
 			</StyledHeader>
 			<StyledMainContent>

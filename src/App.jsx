@@ -8,6 +8,8 @@ import Users from './pages/Users'
 import UserDetails from './pages/UserDetails'
 import { Info } from './components/usersNestedRoutes/Info'
 import Posts from './components/usersNestedRoutes/Posts'
+import Photos from './pages/Photos'
+import { PhotoDetails } from './pages/PhotoDetails'
 
 export const App = () => {
 	return (
@@ -18,6 +20,10 @@ export const App = () => {
 				<Route path='/' element={<Layout />}>
 					<Route index element={<Home />} />
 					<Route path='about' element={<About />} />
+
+					<Route path='photos' element={<Photos />} />
+					<Route path='photos/:imageId' element={<PhotoDetails />} />
+
 					<Route path='users' element={<Users />} />
 					{/* 4. Динамічний параметр передається через : */}
 					<Route path='users/:userId' element={<UserDetails />}>
