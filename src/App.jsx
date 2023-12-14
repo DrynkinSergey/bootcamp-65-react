@@ -21,7 +21,7 @@ export const App = () => {
 					<Route path='users' element={<Users />} />
 					{/* 4. Динамічний параметр передається через : */}
 					<Route path='users/:userId' element={<UserDetails />}>
-						<Route index element={<Navigate to='info' />} />
+						{/* <Route index element={<Navigate to='info' />} /> */}
 						<Route path='info' element={<Info />} />
 						<Route path='posts' element={<Posts />} />
 					</Route>
