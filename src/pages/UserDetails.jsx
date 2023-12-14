@@ -2,7 +2,7 @@ import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { fetchUserById } from '../services/api'
 import { useHttp } from '../hooks/useHttp'
 import { StyledNavLink } from '../components/Layout'
-import { useRef } from 'react'
+import { Suspense, useRef } from 'react'
 
 const UserDetails = () => {
 	const { userId } = useParams()
@@ -41,7 +41,9 @@ const UserDetails = () => {
 			{/* users/21/info */}
 			<StyledNavLink to='info'>info by user</StyledNavLink>
 			<StyledNavLink to='posts'>posts by user</StyledNavLink>
-			<Outlet />
+			<Suspense fallback={<h1>Loading second suspense</h1>}>
+				<Outlet />
+			</Suspense>
 		</div>
 	)
 }

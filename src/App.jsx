@@ -1,15 +1,20 @@
-import React from 'react'
+import React, { lazy } from 'react'
 import { Link, Navigate, Route, Routes } from 'react-router-dom'
 import Home from './pages/Home'
-import About from './pages/About'
+// import About from './pages/About'
 import NotFound from './pages/NotFound'
 import Layout from './components/Layout'
-import Users from './pages/Users'
-import UserDetails from './pages/UserDetails'
+// import Users from './pages/Users'
+// import UserDetails from './pages/UserDetails'
 import { Info } from './components/usersNestedRoutes/Info'
-import Posts from './components/usersNestedRoutes/Posts'
+// import Posts from './components/usersNestedRoutes/Posts'
 import Photos from './pages/Photos'
 import { PhotoDetails } from './pages/PhotoDetails'
+
+const About = lazy(() => import('./pages/About'))
+const Users = lazy(() => import('./pages/Users'))
+const UserDetails = lazy(() => import('./pages/UserDetails'))
+const Posts = lazy(() => import('./components/usersNestedRoutes/Posts'))
 
 export const App = () => {
 	return (

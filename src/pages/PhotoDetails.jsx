@@ -1,14 +1,18 @@
-import React from 'react'
-import { useParams } from 'react-router-dom'
+import React, { useRef } from 'react'
+import { Link, useLocation, useParams } from 'react-router-dom'
 import { useHttp } from '../hooks/useHttp'
 import { fetchImagesById } from '../services/pexelsApi'
 import styled from 'styled-components'
 
 export const PhotoDetails = () => {
 	const { imageId } = useParams()
+	const location = useLocation()
+	console.log(location)
+	const goBackRef = useRef(location.state?.from || '/photos')
 	const [photo] = useHttp(fetchImagesById, imageId)
 	return (
 		<div>
+			<Link to={goBackRef.current}>Go back to photos!</Link>
 			<h1>Photo #{imageId}</h1>
 			{photo ? (
 				<StyledPhotoInfo>

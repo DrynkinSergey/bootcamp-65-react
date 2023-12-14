@@ -16,10 +16,10 @@ const normalizeData = data =>
 		avg_color,
 	}))
 
-export const fetchImages = async () => {
+export const fetchImages = async (query = 'car') => {
 	const { data } = await instance.get('search', {
 		params: {
-			query: 'code',
+			query,
 		},
 	})
 	return normalizeData(data.photos)
