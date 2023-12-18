@@ -3,6 +3,7 @@
 import { combineReducers, createStore } from 'redux'
 import { counterReducer } from './counter/reducer'
 import { devToolsEnhancer } from '@redux-devtools/extension'
+import { todoReducer } from './todos/reducer'
 
 // Встановлюємо пакет для devToolss та використовуємо його
 const devtools = devToolsEnhancer()
@@ -10,6 +11,7 @@ const devtools = devToolsEnhancer()
 // Збираємо до купи всі редьюсери в один великий об'єкт
 const rootReducer = combineReducers({
 	counterData: counterReducer,
+	todoData: todoReducer,
 })
 
 // Екпортуємо наш стор з файлу, передаємо рут редьюсер, щоб працював доступ і маніпуляція з даними
