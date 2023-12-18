@@ -1,15 +1,22 @@
+import { useDispatch, useSelector } from 'react-redux'
 import { Flex, FlexContainer, StyledButton, StyledCounter } from './Counter.styled'
+import { actionTypes } from '../../redux/counter/actionTypes'
 export const Counter = () => {
+	const counter = useSelector(state => state.counterData.counter)
+	const step = useSelector(state => state.counterData.step)
+
+	const dispatch = useDispatch()
+
 	return (
 		<FlexContainer>
 			<StyledCounter>
-				<h1>{1}</h1>
+				<h1>{counter}</h1>
 
-				<input type='text' value={1} />
+				<input type='text' value={step} />
 				<Flex>
-					<StyledButton>minus</StyledButton>
-					<StyledButton>reset</StyledButton>
-					<StyledButton>plus</StyledButton>
+					<StyledButton onClick={() => dispatch({ type: actionTypes.decrement })}>minus</StyledButton>
+					<StyledButton onClick={() => dispatch({ type: actionTypes.reset })}>reset</StyledButton>
+					<StyledButton onClick={() => dispatch({ type: actionTypes.increment })}>plus</StyledButton>
 				</Flex>
 			</StyledCounter>
 		</FlexContainer>
