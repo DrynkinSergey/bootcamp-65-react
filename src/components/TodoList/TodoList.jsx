@@ -23,9 +23,10 @@ export const TodoList = () => {
 	const dispatch = useDispatch()
 
 	const [newTodoText, setNewTodoText] = useState('')
+
 	const handleSubmit = e => {
 		e.preventDefault()
-		const newTodo = { id: crypto.randomUUID(), title: newTodoText }
+		const newTodo = { id: crypto.randomUUID(), title: newTodoText, completed: false }
 		dispatch(addTodo(newTodo))
 		setNewTodoText('')
 	}
