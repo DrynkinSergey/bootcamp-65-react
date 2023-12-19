@@ -32,7 +32,7 @@ storage,
 }`
 
 - [] - Копіюємо функцію "persistReducer" для створення персіст редьюсера
-  const persistedReducer = persistReducer(persistConfig, todoReducer)
+  ` const persistedReducer = persistReducer(persistConfig, todoReducer)`
 
 - [] - Перший аргумент - це сам конфіг, де може бути налаштування чорних та білих списків
 - [] - Другий аргумент - це редьюсер, котрий ми хочемо записати в локал сторедж
