@@ -2,8 +2,9 @@
 // CreateStore - конфігуратор для створення стору( сховище даних)
 import { combineReducers, createStore } from 'redux'
 import { counterReducer } from './counter/reducer'
-import { todoReducer } from './todos/reducer'
+
 import { configureStore } from '@reduxjs/toolkit'
+import { todoReducer } from './todos/todoSlice'
 
 // Встановлюємо пакет для devToolss та використовуємо його
 
@@ -18,5 +19,5 @@ const rootReducer = combineReducers({
 // export const store = createStore(rootReducer, devtools)
 export const store = configureStore({
 	reducer: rootReducer,
-	devTools: false,
+	devTools: process.env.NODE_ENV !== 'production',
 })

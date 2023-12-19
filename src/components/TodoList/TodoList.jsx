@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { addTodo, deleteTodo, setFilter, toggleTodo } from '../../redux/todos/actions'
 import { selectTodos } from '../../redux/todos/selectors'
+
+import { deleteTodo, toggleTodo, setFilter, addTodo } from '../../redux/todos/todoSlice'
 
 export const TodoList = () => {
 	const todos = useSelector(selectTodos)
@@ -26,8 +27,7 @@ export const TodoList = () => {
 
 	const handleSubmit = e => {
 		e.preventDefault()
-		const newTodo = { id: crypto.randomUUID(), title: newTodoText, completed: false }
-		dispatch(addTodo(newTodo))
+		dispatch(addTodo(newTodoText))
 		setNewTodoText('')
 	}
 	return (
