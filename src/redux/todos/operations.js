@@ -1,7 +1,7 @@
 //https://65829e7202f747c83679b79e.mockapi.io/todos
 
 import axios from 'axios'
-import { addTodo, deleteTodo, fetchingData, isError, isPending, toggleTodo } from './todoSlice'
+
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
 axios.defaults.baseURL = 'https://65829e7202f747c83679b79e.mockapi.io'

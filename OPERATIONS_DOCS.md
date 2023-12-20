@@ -21,7 +21,6 @@ createAsyncThunk('назва_санки', async (перший_параметр, 
 - другий_параметр: зазвичай `thunkApi` . В ньому лежить `dispatch` , `rejectWithValue`
 - запит: логіка запиту
 - # В 90% треба зробити return після виконання запиту на сервер, повертаємо дані в зовнішній світ!!!
-  Додати `extraReducers` в слайс 4.
 - блок catch: `return rejectWithValue(err.message)` повертає помилку якщо вона станеться в якості payload
 - # ВСЕ ЩО ПОВЕРТАЄТЬСЯ З THUNK ПОТРАПЛЯЄ В ACTION.PAYLOAD!
 
