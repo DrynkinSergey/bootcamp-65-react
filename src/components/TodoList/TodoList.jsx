@@ -1,12 +1,20 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { selectTodos } from '../../redux/todos/selectors'
+import { selectError, selectLoading, selectTodos } from '../../redux/todos/selectors'
 
 import { deleteTodo, toggleTodo, setFilter, addTodo } from '../../redux/todos/todoSlice'
+import { fetchTodosThunk } from '../../redux/todos/operations'
 
 export const TodoList = () => {
 	const todos = useSelector(selectTodos)
 	const filter = useSelector(state => state.todoData.filter)
+	const loading = useSelector(selectLoading)
+	const error = useSelector(selectError)
+	const dispatch = useDispatch()
+
+	useEffect(() => {
+		dispatch(fetchTodosThunk())
+	}, [dispatch])
 
 	const getFilteredData = () => {
 		switch (filter) {
@@ -20,8 +28,6 @@ export const TodoList = () => {
 		}
 	}
 	const filteredData = getFilteredData()
-
-	const dispatch = useDispatch()
 
 	const [newTodoText, setNewTodoText] = useState('')
 
@@ -55,6 +61,9 @@ export const TodoList = () => {
 					</li>
 				))}
 			</ul>
+
+			{loading && <h1>Loading....</h1>}
+			{error && <h1>{error}</h1>}
 		</div>
 	)
 }

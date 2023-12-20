@@ -2,14 +2,29 @@ import { createSlice, nanoid } from '@reduxjs/toolkit'
 import moment from 'moment'
 
 const initialState = {
-	todos: [{ id: '1', title: 'REDUX', completed: true }],
+	todos: [],
 	filter: 'all',
+	loading: false,
+	error: '',
 }
 
 const todoSlice = createSlice({
 	name: 'todos',
 	initialState,
 	reducers: {
+		fetchingData: (state, { payload }) => {
+			state.todos = payload
+			state.loading = false
+		},
+		isPending: (state, { payload }) => {
+			state.loading = true
+			state.error = ''
+		},
+		isError: (state, { payload }) => {
+			state.error = payload
+			state.loading = false
+		},
+		
 		deleteTodo: (state, action) => {
 			state.todos = state.todos.filter(item => item.id !== action.payload)
 		},
@@ -40,5 +55,5 @@ const todoSlice = createSlice({
 	},
 })
 
-export const { deleteTodo, toggleTodo, setFilter, addTodo } = todoSlice.actions
+export const { deleteTodo, toggleTodo, isPending, isError, setFilter, addTodo, fetchingData } = todoSlice.actions
 export const todoReducer = todoSlice.reducer
