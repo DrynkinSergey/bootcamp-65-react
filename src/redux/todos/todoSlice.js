@@ -24,7 +24,7 @@ const todoSlice = createSlice({
 			state.error = payload
 			state.loading = false
 		},
-		
+
 		deleteTodo: (state, action) => {
 			state.todos = state.todos.filter(item => item.id !== action.payload)
 		},
@@ -35,22 +35,8 @@ const todoSlice = createSlice({
 		setFilter: (state, { payload }) => {
 			state.filter = payload
 		},
-		addTodo: {
-			// const newTodo = { id: crypto.randomUUID(), title: payload, completed: false }
-			// state.todos.push(newTodo)
-			prepare: title => {
-				return {
-					payload: {
-						title,
-						completed: false,
-						id: nanoid(),
-						createdAt: moment().format('DD.MM.YYYY hh:mm:ss'),
-					},
-				}
-			},
-			reducer: (state, { payload }) => {
-				state.todos.push(payload)
-			},
+		addTodo: (state, { payload }) => {
+			state.todos.push(payload)
 		},
 	},
 })
