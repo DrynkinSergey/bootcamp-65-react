@@ -1,6 +1,6 @@
 import { createSlice, nanoid } from '@reduxjs/toolkit'
 import moment from 'moment'
-import { fetchTodosThunk } from './operations'
+import { addTodoThunk, deleteTodoThunk, fetchTodosThunk, toggleTodoThunk } from './operations'
 
 const initialState = {
 	todos: [],
@@ -45,6 +45,16 @@ const todoSlice = createSlice({
 			.addCase(fetchTodosThunk.fulfilled, (state, { payload }) => {
 				state.todos = payload
 				state.loading = false
+			})
+			.addCase(deleteTodoThunk.fulfilled, (state, { payload }) => {
+				state.todos = state.todos.filter(item => item.id !== payload.id)
+			})
+			.addCase(addTodoThunk.fulfilled, (state, { payload }) => {
+				state.todos.push(payload)
+			})
+			.addCase(toggleTodoThunk.fulfilled, (state, { payload }) => {
+				const item = state.todos.find(item => item.id === payload.id)
+				item.completed = !item.completed
 			})
 			.addCase(fetchTodosThunk.pending, state => {
 				state.loading = true
