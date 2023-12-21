@@ -1,33 +1,27 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { selectError, selectLoading, selectTodos } from '../../redux/todos/selectors'
+import {
+	selectActiveTodos,
+	selectError,
+	selectFilter,
+	selectFilteredData,
+	selectLoading,
+} from '../../redux/todos/selectors'
 
-import { deleteTodo, toggleTodo, setFilter, addTodo } from '../../redux/todos/todoSlice'
+import { setFilter } from '../../redux/todos/todoSlice'
 import { addTodoThunk, deleteTodoThunk, fetchTodosThunk, toggleTodoThunk } from '../../redux/todos/operations'
 
 export const TodoList = () => {
-	const todos = useSelector(selectTodos)
-	const filter = useSelector(state => state.todoData.filter)
+	const todos = useSelector(selectFilteredData)
+	const filter = useSelector(selectFilter)
 	const loading = useSelector(selectLoading)
 	const error = useSelector(selectError)
+	const activeTodos = useSelector(selectActiveTodos)
 	const dispatch = useDispatch()
 
 	useEffect(() => {
 		dispatch(fetchTodosThunk())
 	}, [dispatch])
-
-	const getFilteredData = () => {
-		switch (filter) {
-			case 'active':
-				return todos.filter(todo => !todo.completed)
-			case 'completed':
-				return todos.filter(todo => todo.completed)
-
-			default:
-				return todos
-		}
-	}
-	const filteredData = getFilteredData()
 
 	const [newTodoText, setNewTodoText] = useState('')
 
@@ -53,8 +47,10 @@ export const TodoList = () => {
 					Completed
 				</button>
 			</div>
+
+			<h1>Active todos: {activeTodos}</h1>
 			<ul>
-				{filteredData.map(item => (
+				{todos.map(item => (
 					<li key={item.id}>
 						<input type='checkbox' onChange={() => dispatch(toggleTodoThunk(item))} checked={item.completed} />
 						{item.title} <button onClick={() => dispatch(deleteTodoThunk(item.id))}>Delete</button>

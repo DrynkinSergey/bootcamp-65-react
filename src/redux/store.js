@@ -18,6 +18,5 @@ const myMiddleware = store => next => action => {
 
 export const store = configureStore({
 	reducer: rootReducer,
-	middleware: getDefaultMiddleware => getDefaultMiddleware().concat(myMiddleware),
 	devTools: process.env.NODE_ENV !== 'production',
 })

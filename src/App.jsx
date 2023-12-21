@@ -6,7 +6,7 @@ export const App = () => {
 	return (
 		<div>
 			<TodoList />
-			<Articles />
+			{/* <Articles /> */}
 		</div>
 	)
 }
