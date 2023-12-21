@@ -1,7 +1,10 @@
 import React from 'react'
 import { ArticleItem } from './ArticleItem'
+import { useSelector } from 'react-redux'
+import { selectArticles } from '../../redux/selectors'
 
 export const Articles = () => {
+	const articles = useSelector(selectArticles)
 	return (
 		<>
 			<header className='text-3xl py-4 bg-blue-950 flex justify-between px-4'>
@@ -12,15 +15,11 @@ export const Articles = () => {
 			</header>
 
 			<ul>
-				<li>
-					<ArticleItem />
-				</li>
-				<li>
-					<ArticleItem />
-				</li>
-				<li>
-					<ArticleItem />
-				</li>
+				{articles.map(article => (
+					<li key={article.id}>
+						<ArticleItem {...article} />
+					</li>
+				))}
 			</ul>
 		</>
 	)
