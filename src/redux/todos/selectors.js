@@ -5,6 +5,12 @@ export const selectLoading = state => state.todoData.loading
 export const selectError = state => state.todoData.error
 export const selectFilter = state => state.todoData.filter
 
+// 1. Створити селектор за допомогою createSelector
+// 2. В функцію createSelector передається два аргументи.
+//    - масив залежностей, від чого буде перераховувати селктор значення
+//    - колбек, в якому вся логіка. В колбек приходить в такому самому порядку змінні для роботи функції. В нашому випадку це задачі та фільтр
+
+// createSelector буде запам'ятовувати значення, котре він повернув і виконувати обчислення лише у випадку зміни однієї з залежностей!
 export const selectFilteredData = createSelector([selectTodos, selectFilter], (todos, filter) => {
 	console.log('FILTER TODOS')
 	switch (filter) {
