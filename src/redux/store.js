@@ -1,14 +1,12 @@
 import { combineReducers } from 'redux'
-import { logger } from 'redux-logger'
 import { configureStore } from '@reduxjs/toolkit'
 import { todoReducer } from './todos/todoSlice'
 import { articleReducer } from './articles/slice'
-import { userReducer } from './user/slice'
 
+//'https://goit-task-manager.herokuapp.com/'
 const rootReducer = combineReducers({
 	todoData: todoReducer,
 	articles: articleReducer,
-	user: userReducer,
 })
 
 export const store = configureStore({

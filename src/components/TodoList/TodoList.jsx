@@ -32,28 +32,51 @@ export const TodoList = () => {
 	}
 	return (
 		<div>
-			<form onSubmit={handleSubmit}>
-				<input value={newTodoText} onChange={e => setNewTodoText(e.target.value)} type='text' />
-				<button>Add todo</button>
+			<form className='flex justify-center gap-4   px-4 py-4 w-1/2 mx-auto' onSubmit={handleSubmit}>
+				<input
+					className='border-2 border-black'
+					value={newTodoText}
+					onChange={e => setNewTodoText(e.target.value)}
+					type='text'
+				/>
+				<button className='border-2 border-black px-4 py-1'>Add todo</button>
 			</form>
-			<div>
-				<button style={{ color: filter === 'all' && 'blue' }} onClick={() => dispatch(setFilter('all'))}>
+			<div className='flex justify-center gap-4'>
+				<button
+					className='border-2 border-black px-4 rounded-md'
+					style={{ color: filter === 'all' && 'blue' }}
+					onClick={() => dispatch(setFilter('all'))}
+				>
 					All
 				</button>
-				<button style={{ color: filter === 'active' && 'blue' }} onClick={() => dispatch(setFilter('active'))}>
+				<button
+					className='border-2 border-black px-4 rounded-md'
+					style={{ color: filter === 'active' && 'blue' }}
+					onClick={() => dispatch(setFilter('active'))}
+				>
 					Active
 				</button>
-				<button style={{ color: filter === 'completed' && 'blue' }} onClick={() => dispatch(setFilter('completed'))}>
+				<button
+					className='border-2 border-black px-4 rounded-md'
+					style={{ color: filter === 'completed' && 'blue' }}
+					onClick={() => dispatch(setFilter('completed'))}
+				>
 					Completed
 				</button>
 			</div>
 
-			<h1>Active todos: {activeTodos}</h1>
-			<ul>
+			<h1 className='text-center my-4 font-bold text-2xl'>Active todos: {activeTodos}</h1>
+			<ul className='grid grid-cols-3 gap-10 w-[80%]  mx-auto p-0'>
 				{todos.map(item => (
-					<li key={item.id}>
+					<li className='flex p-4 border-2 border-black rounded-md shadow-md gap-4 justify-between' key={item.id}>
 						<input type='checkbox' onChange={() => dispatch(toggleTodoThunk(item))} checked={item.completed} />
-						{item.title} <button onClick={() => dispatch(deleteTodoThunk(item.id))}>Delete</button>
+						{item.title}{' '}
+						<button
+							className='border-2 border-black px-2 rounded-md hover:bg-red-500'
+							onClick={() => dispatch(deleteTodoThunk(item.id))}
+						>
+							Delete
+						</button>
 					</li>
 				))}
 			</ul>
