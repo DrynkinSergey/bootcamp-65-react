@@ -1,11 +1,14 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
+import { useDispatch } from 'react-redux'
+import { registerThunk } from '../../redux/auth/operations'
 
 export const Register = () => {
 	const { register, handleSubmit } = useForm()
-
+	const dispatch = useDispatch()
 	const submit = data => {
 		console.log(data)
+		dispatch(registerThunk(data))
 	}
 	return (
 		<div className='flex justify-center items-center min-h-[80vh] '>
