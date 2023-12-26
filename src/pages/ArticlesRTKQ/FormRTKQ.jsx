@@ -5,13 +5,12 @@ import { useNavigate } from 'react-router-dom'
 import { addArticleThunk } from '../redux/articles/operations'
 import { selectUserName } from '../redux/auth/selectors'
 
-export const ArticleForm = () => {
+export const FormRTKQ = () => {
 	const { register, handleSubmit, reset } = useForm()
 	const navigate = useNavigate()
-	const dispatch = useDispatch()
 	const user = useSelector(selectUserName)
 	const submit = data => {
-		dispatch(addArticleThunk({ ...data, tags: data.tags.split(','), author: user, createdAt: new Date(Date.now()) }))
+		// dispatch(addArticleThunk({ ...data, tags: data.tags.split(','), author: user, createdAt: new Date(Date.now()) }))
 		reset()
 		navigate('/articles')
 	}

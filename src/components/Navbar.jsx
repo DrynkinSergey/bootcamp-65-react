@@ -11,6 +11,7 @@ export const Navbar = () => {
 		<div className='text-white font-bold flex gap-4'>
 			<NavLink to='/'>Home</NavLink>
 			<NavLink to='/tasks'>Todos</NavLink>
+			<NavLink to='/articles'>Articles</NavLink>
 			{!isLoggedIn && (
 				<>
 					<NavLink to='/login'>Login</NavLink>

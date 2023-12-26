@@ -10,11 +10,6 @@ const initialState = {
 const slice = createSlice({
 	name: 'articles',
 	initialState,
-	reducers: {
-		addArticle: (state, { payload }) => {
-			state.items.push(payload)
-		},
-	},
 	extraReducers: builder => {
 		builder
 			.addCase(fetchData.fulfilled, (state, { payload }) => {
@@ -30,4 +25,3 @@ const slice = createSlice({
 })
 
 export const articleReducer = slice.reducer
-export const { addArticle } = slice.actions

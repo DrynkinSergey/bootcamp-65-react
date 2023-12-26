@@ -1,12 +1,9 @@
-import React from 'react'
 import { cutText } from '../../helpers/cutText'
-import { useDispatch, useSelector } from 'react-redux'
-import { deleteArticleThunk } from '../../redux/articles/operations'
+import { useSelector } from 'react-redux'
 import { formatDistanceToNow } from 'date-fns'
 import { selectUserName } from '../../redux/auth/selectors'
 
-export const ArticleItem = ({ id, title, description, tags, author, createdAt }) => {
-	const dispatch = useDispatch()
+export const ArticleItemRTKQ = ({ id, title, description, tags, author, createdAt }) => {
 	const user = useSelector(selectUserName)
 	return (
 		<div className='w-[90%] mt-2 mx-auto p-4 border-2 border-black rounded-md shadow-md'>
@@ -26,7 +23,7 @@ export const ArticleItem = ({ id, title, description, tags, author, createdAt })
 					<>
 						<button className='border-2 border-black rounded-md px-4 py-1 shadow-md'>edit</button>
 						<button
-							onClick={() => dispatch(deleteArticleThunk(id))}
+							// onClick={() => dispatch(deleteArticleThunk(id))}
 							className='border-2 border-black rounded-md px-4 py-1 shadow-md'
 						>
 							delete

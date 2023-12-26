@@ -15,7 +15,6 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, authReducer)
 
-//'https://goit-task-manager.herokuapp.com/'
 const rootReducer = combineReducers({
 	todoData: todoReducer,
 	articles: articleReducer,
