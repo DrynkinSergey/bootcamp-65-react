@@ -9,6 +9,8 @@ import { refreshThunk } from './redux/auth/operations'
 import { useEffect } from 'react'
 import { Articles } from './pages/Articles/Articles'
 import { NewArticle } from './pages/NewArticle/NewArticle'
+import { PrivateRoute } from './routesConfig/PrivateRoute'
+import { PublicRoute } from './routesConfig/PublicRoute'
 
 export const App = () => {
 	const dispatch = useDispatch()
@@ -22,11 +24,32 @@ export const App = () => {
 			<Header />
 			<Routes>
 				<Route path='/' element={<h1>Homepage</h1>} />
-				<Route path='/tasks' element={<TodoList />} />
+				<Route
+					path='/tasks'
+					element={
+						<PrivateRoute>
+							<TodoList />
+						</PrivateRoute>
+					}
+				/>
 				<Route path='/articles' element={<Articles />} />
 				<Route path='/articles/new' element={<NewArticle />} />
-				<Route path='/register' element={<Register />} />
-				<Route path='/login' element={<Login />} />
+				<Route
+					path='/register'
+					element={
+						<PublicRoute>
+							<Register />
+						</PublicRoute>
+					}
+				/>
+				<Route
+					path='/login'
+					element={
+						<PublicRoute>
+							<Login />
+						</PublicRoute>
+					}
+				/>
 				<Route path='*' element={<NotFound />} />
 			</Routes>
 		</div>
