@@ -13,6 +13,8 @@ import { PrivateRoute } from './routesConfig/PrivateRoute'
 import { PublicRoute } from './routesConfig/PublicRoute'
 import { selectIsRefresh } from './redux/auth/selectors'
 import { Loader } from './components/Loader'
+import { ArticlesRTKQ } from './pages/ArticlesRTKQ/ArticlesRTKQ'
+import { FormRTKQ } from './pages/ArticlesRTKQ/FormRTKQ'
 
 export const App = () => {
 	const dispatch = useDispatch()
@@ -38,15 +40,10 @@ export const App = () => {
 						</PrivateRoute>
 					}
 				/>
-				<Route
-					path='/articles'
-					element={
-						<PrivateRoute>
-							<Articles />
-						</PrivateRoute>
-					}
-				/>
+				<Route path='/articles' element={<Articles />} />
 				<Route path='/articles/new' element={<NewArticle />} />
+				<Route path='/articlesRTK' element={<ArticlesRTKQ />} />
+				<Route path='/articlesRTK/new' element={<FormRTKQ />} />
 				<Route
 					path='/register'
 					element={

@@ -5,6 +5,8 @@ import { articleReducer } from './articles/slice'
 import { authReducer } from './auth/slice'
 import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
+import { articleApi } from './articlesAPI'
+import { setupListeners } from '@reduxjs/toolkit/query'
 
 const persistConfig = {
 	key: 'auth',
@@ -19,6 +21,7 @@ const rootReducer = combineReducers({
 	todoData: todoReducer,
 	articles: articleReducer,
 	auth: persistedReducer,
+	[articleApi.reducerPath]: articleApi.reducer,
 })
 
 export const store = configureStore({
@@ -28,7 +31,8 @@ export const store = configureStore({
 			serializableCheck: {
 				ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
 			},
-		}),
+		}).concat(articleApi.middleware),
 	devTools: process.env.NODE_ENV !== 'production',
 })
 export const persistor = persistStore(store)
+setupListeners(store.dispatch)

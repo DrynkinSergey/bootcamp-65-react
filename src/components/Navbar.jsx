@@ -12,6 +12,7 @@ export const Navbar = () => {
 			<NavLink to='/'>Home</NavLink>
 			<NavLink to='/tasks'>Todos</NavLink>
 			<NavLink to='/articles'>Articles</NavLink>
+			<NavLink to='/articlesRTK'>RTK QUERY</NavLink>
 			{!isLoggedIn && (
 				<>
 					<NavLink to='/login'>Login</NavLink>

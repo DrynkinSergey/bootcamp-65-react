@@ -2,17 +2,23 @@ import React from 'react'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { addArticleThunk } from '../redux/articles/operations'
-import { selectUserName } from '../redux/auth/selectors'
+import { selectUserName } from '../../redux/auth/selectors'
+import { useAddArticleMutation } from '../../redux/articlesAPI'
+import { toast } from 'react-toastify'
 
 export const FormRTKQ = () => {
 	const { register, handleSubmit, reset } = useForm()
 	const navigate = useNavigate()
 	const user = useSelector(selectUserName)
+	const [addArticle, { isError }] = useAddArticleMutation()
 	const submit = data => {
 		// dispatch(addArticleThunk({ ...data, tags: data.tags.split(','), author: user, createdAt: new Date(Date.now()) }))
+		addArticle({ ...data, tags: data.tags.split(','), author: user, createdAt: new Date(Date.now()) })
 		reset()
-		navigate('/articles')
+		navigate('/articlesRTK')
+		if (isError) {
+			toast.success('data added')
+		}
 	}
 	return (
 		<form className='border-2 w-[90%] mx-auto py-8 px-4 border-black grid gap-4' onSubmit={handleSubmit(submit)}>
