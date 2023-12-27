@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, isAnyOf } from '@reduxjs/toolkit'
 import { loginThunk, logoutThunk, refreshThunk, registerThunk } from './operations'
 
 const initialState = {
@@ -9,6 +9,8 @@ const initialState = {
 	token: '',
 	isLoggedIn: false,
 	isRefresh: false,
+	isLoading: false,
+	isError: null,
 }
 
 const slice = createSlice({
@@ -33,15 +35,20 @@ const slice = createSlice({
 			.addCase(refreshThunk.rejected, state => {
 				state.isRefresh = false
 			})
-			.addCase(registerThunk.fulfilled, (state, { payload }) => {
+
+			.addMatcher(isAnyOf(registerThunk.fulfilled, loginThunk.fulfilled), (state, { payload }) => {
 				state.user = payload.user
 				state.token = payload.token
 				state.isLoggedIn = true
 			})
-			.addCase(loginThunk.fulfilled, (state, { payload }) => {
-				state.user = payload.user
-				state.token = payload.token
-				state.isLoggedIn = true
+			.addMatcher(isAnyOf(loginThunk.pending, registerThunk.pending, logoutThunk.pending), state => {
+				state.isLoading = true
+				state.isError = null
+			})
+
+			.addMatcher(isAnyOf(loginThunk.rejected, registerThunk.rejected, logoutThunk.rejected), (state, { payload }) => {
+				state.isLoading = false
+				state.isError = payload
 			})
 	},
 })
