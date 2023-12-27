@@ -8,6 +8,7 @@ const initialState = {
 	},
 	token: '',
 	isLoggedIn: false,
+	isRefresh: false,
 }
 
 const slice = createSlice({
@@ -24,6 +25,13 @@ const slice = createSlice({
 				state.user.name = payload.name
 				state.user.email = payload.email
 				state.isLoggedIn = true
+				state.isRefresh = false
+			})
+			.addCase(refreshThunk.pending, state => {
+				state.isRefresh = true
+			})
+			.addCase(refreshThunk.rejected, state => {
+				state.isRefresh = false
 			})
 			.addCase(registerThunk.fulfilled, (state, { payload }) => {
 				state.user = payload.user

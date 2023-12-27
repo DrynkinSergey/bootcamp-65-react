@@ -18,7 +18,6 @@ export const Login = () => {
 		dispatch(loginThunk(data))
 			.unwrap()
 			.then(res => {
-				navigate('/tasks')
 				toast.success(`Welcome ${res.user.name}!`)
 			})
 			.catch(() => {

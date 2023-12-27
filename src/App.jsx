@@ -4,13 +4,15 @@ import { TodoList } from './pages/TodoList/TodoList'
 import { NotFound } from './pages/NotFound'
 import { Register } from './pages/Register/Register'
 import { Login } from './pages/Login/Login'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { refreshThunk } from './redux/auth/operations'
 import { useEffect } from 'react'
 import { Articles } from './pages/Articles/Articles'
 import { NewArticle } from './pages/NewArticle/NewArticle'
 import { PrivateRoute } from './routesConfig/PrivateRoute'
 import { PublicRoute } from './routesConfig/PublicRoute'
+import { selectIsRefresh } from './redux/auth/selectors'
+import { Loader } from './components/Loader'
 
 export const App = () => {
 	const dispatch = useDispatch()
@@ -19,8 +21,12 @@ export const App = () => {
 		dispatch(refreshThunk())
 	}, [dispatch])
 
-	return (
-		<div>
+	const isRefresh = useSelector(selectIsRefresh)
+
+	return isRefresh ? (
+		<Loader />
+	) : (
+		<>
 			<Header />
 			<Routes>
 				<Route path='/' element={<h1>Homepage</h1>} />
@@ -32,7 +38,14 @@ export const App = () => {
 						</PrivateRoute>
 					}
 				/>
-				<Route path='/articles' element={<Articles />} />
+				<Route
+					path='/articles'
+					element={
+						<PrivateRoute>
+							<Articles />
+						</PrivateRoute>
+					}
+				/>
 				<Route path='/articles/new' element={<NewArticle />} />
 				<Route
 					path='/register'
@@ -52,6 +65,6 @@ export const App = () => {
 				/>
 				<Route path='*' element={<NotFound />} />
 			</Routes>
-		</div>
+		</>
 	)
 }
