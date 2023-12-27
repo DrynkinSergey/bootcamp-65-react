@@ -1,10 +1,11 @@
 //https://65829e7202f747c83679b79e.mockapi.io/todos
 
-import axios from 'axios'
+// import axios from 'axios'
 
 import { createAsyncThunk } from '@reduxjs/toolkit'
+import { api } from '../../configAxios/api'
 
-axios.defaults.baseURL = 'https://65829e7202f747c83679b79e.mockapi.io'
+// axios.defaults.baseURL = 'https://65829e7202f747c83679b79e.mockapi.io'
 
 // CRUD
 // C - create
@@ -16,7 +17,7 @@ axios.defaults.baseURL = 'https://65829e7202f747c83679b79e.mockapi.io'
 
 export const fetchTodosThunk = createAsyncThunk('fetchTodos', async (_, thunkAPI) => {
 	try {
-		const { data } = await axios.get('todos')
+		const { data } = await api.get('tasks')
 		return data
 	} catch (error) {
 		return thunkAPI.rejectWithValue(error.message)
@@ -25,7 +26,7 @@ export const fetchTodosThunk = createAsyncThunk('fetchTodos', async (_, thunkAPI
 
 export const deleteTodoThunk = createAsyncThunk('deleteTodo', async (id, thunkAPI) => {
 	try {
-		const { data } = await axios.delete(`todos/${id}`)
+		const { data } = await api.delete(`tasks/${id}`)
 		return data
 	} catch (error) {
 		return thunkAPI.rejectWithValue(error.message)
@@ -34,7 +35,7 @@ export const deleteTodoThunk = createAsyncThunk('deleteTodo', async (id, thunkAP
 
 export const addTodoThunk = createAsyncThunk('addTodo', async (text, thunkAPI) => {
 	try {
-		const { data } = await axios.post('todos', { title: text })
+		const { data } = await api.post('tasks', { text })
 		return data
 	} catch (error) {
 		return thunkAPI.rejectWithValue(error.message)
@@ -43,7 +44,7 @@ export const addTodoThunk = createAsyncThunk('addTodo', async (text, thunkAPI) =
 
 export const toggleTodoThunk = createAsyncThunk('toggleTodo', async (todo, thunkAPI) => {
 	try {
-		const { data } = await axios.put(`todos/${todo.id}`, { ...todo, completed: !todo.completed })
+		const { data } = await api.patch(`tasks/${todo.id}`, { ...todo, completed: !todo.completed })
 		return data
 	} catch (error) {
 		return thunkAPI.rejectWithValue(error.message)

@@ -70,7 +70,7 @@ export const TodoList = () => {
 				{todos.map(item => (
 					<li className='flex p-4 border-2 border-black rounded-md shadow-md gap-4 justify-between' key={item.id}>
 						<input type='checkbox' onChange={() => dispatch(toggleTodoThunk(item))} checked={item.completed} />
-						{item.title}{' '}
+						{item.text}{' '}
 						<button
 							className='border-2 border-black px-2 rounded-md hover:bg-red-500'
 							onClick={() => dispatch(deleteTodoThunk(item.id))}

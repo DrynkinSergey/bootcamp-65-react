@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { addTodoThunk, deleteTodoThunk, fetchTodosThunk, toggleTodoThunk } from './operations'
+import { logoutThunk } from '../auth/operations'
 
 const initialState = {
 	todos: [],
@@ -21,6 +22,9 @@ const todoSlice = createSlice({
 			.addCase(fetchTodosThunk.fulfilled, (state, { payload }) => {
 				state.todos = payload
 				state.loading = false
+			})
+			.addCase(logoutThunk.fulfilled, state => {
+				state.todos = []
 			})
 			.addCase(deleteTodoThunk.fulfilled, (state, { payload }) => {
 				state.todos = state.todos.filter(item => item.id !== payload.id)
